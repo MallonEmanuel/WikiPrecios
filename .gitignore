@@ -3,6 +3,9 @@
 *.ap_
 /*/build/
 
+# Testing
+*.jar
+
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
