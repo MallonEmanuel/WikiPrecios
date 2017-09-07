@@ -1,4 +1,6 @@
 # Built application files
+*.apk
+*.ap_
 /*/build/
 
 # Crashlytics configuations
