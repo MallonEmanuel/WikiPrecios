@@ -3,6 +3,8 @@
 *.ap_
 /*/build/
 
+build/
+
 # Testing
 *.jar
 
