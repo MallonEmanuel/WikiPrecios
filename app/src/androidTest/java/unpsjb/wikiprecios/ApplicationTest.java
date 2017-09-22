@@ -1,4 +1,4 @@
-package unpsjb.wikipreciosclient;
+package unpsjb.wikiprecios;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

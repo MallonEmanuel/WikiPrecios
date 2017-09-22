@@ -1,4 +1,4 @@
-package unpsjb.wikipreciosclient;
+package unpsjb.wikiprecios;
 
 import org.junit.Test;
 

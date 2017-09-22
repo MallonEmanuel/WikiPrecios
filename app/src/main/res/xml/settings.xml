@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- PREFERENCIAS GENERALES -->
+    <PreferenceCategory
+        android:key="pref_gen"
+        android:title="@string/pref_gen">
+
+        <CheckBoxPreference
+            android:key="@string/pref_sesion_loged_key"
+            android:title="@string/pref_sesion_loged"
+            android:defaultValue="true" />
+
+        <EditTextPreference
+            android:key="@string/pref_base_url_key"
+            android:title="@string/pref_base_url"
+            android:summary="@string/pref_base_url_resume"
+            android:selectAllOnFocus="false"
+            android:singleLine="true" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

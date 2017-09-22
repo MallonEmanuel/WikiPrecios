@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Preferences-->
+    <!-- Nombre Actividad Ajustes-->
+    <string name="title_activity_settings">Configuración</string>
+
+
+    <!-- GENERALES -->
+    <string name="pref_gen">General</string>
+
+    <!-- Preferencia Sesión iniciada -->
+    <string name="pref_sesion_loged_key">keep_logged_in</string>
+    <string name="pref_sesion_loged">Mantener sesión iniciada</string>
+
+    <!-- Preferencias Base URL -->
+    <string name="pref_base_url_key">base_url</string>
+    <string name="pref_base_url">Base Url</string>
+    <string name="pref_base_url_resume">Por ej = http://192.168.0.105</string>
+
+
+</resources>

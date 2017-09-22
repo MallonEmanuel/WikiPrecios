@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -24,4 +28,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    //  Import for Request Http
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    //  Impor for facebook
+    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
 }
