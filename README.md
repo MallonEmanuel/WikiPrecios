@@ -17,6 +17,6 @@ When you are using android.support.v4.app.FragmentManager then you should use ge
 ## Futuras Mejoras (Durante desarrollo)
 
 1. Permitir ver la base URL desde Preference
-1. Sincronizar la opcion de mantener la sesion - 20-09 15:24 to 21-09 01:14 Resuelto	
+1. Sincronizar la opcion de mantener la sesion
 1. Manejar TimeOut por tiempo de respuesta del servidor
 1. 
