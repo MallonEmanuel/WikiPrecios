@@ -1,7 +1,9 @@
 # Built application files
 *.apk
 *.ap_
-/*/build/
+
+
+build/
 
 # Testing
 *.jar
