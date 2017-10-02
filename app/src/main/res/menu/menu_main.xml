@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_setting"
 
-    tools:context="unpsjb.wikiprecios.MainActivity">
+    tools:context=".view.MainActivity">
     <item
         android:id="@+id/action_settings"
+        android:background="@color/input_register_bg"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />

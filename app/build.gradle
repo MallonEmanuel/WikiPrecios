@@ -13,7 +13,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0" 
     }
     buildTypes {
         release {
@@ -29,8 +29,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
-    //  Import for Request Http
+    //  Import Request Http
     compile 'com.loopj.android:android-async-http:1.4.9'
-    //  Impor for facebook
+    //  Import facebook API
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    // Import barcode scaner
+    compile 'me.dm7.barcodescanner:zbar:1.8.2'
+
 }

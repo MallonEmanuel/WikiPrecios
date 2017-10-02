@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:id="@+id/app"
 
-    tools:context="unpsjb.wikiprecios.MainActivity">
+    tools:context=".view.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@color/bg_app"
+            android:textColor="@color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
     <!--<include layout="@layout/content_main" />-->
