@@ -15,7 +15,7 @@ import unpsjb.wikiprecios.controller.HttpResponseHandler;
  * Created by emanuel on 20/09/17.
  * Este fragmento presenta un menu simple al usuario
  */
-public class MenuFragment extends MyFragment implements HttpResponseHandler {
+public class MenuFragment extends MyFragment {
 
     private Button btnUser;
     private Button btnCamera;
@@ -25,15 +25,11 @@ public class MenuFragment extends MyFragment implements HttpResponseHandler {
     private Button btnExit;
     private Coordinator coordinator;
 
-    private Context context;
-    private SessionManager session;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.menu_view, container, false);
-        context = view.getContext();
 
         btnUser = (Button) view.findViewById(R.id.btn_user_menu);
         btnCamera = (Button) view.findViewById(R.id.btn_camera_menu);
@@ -66,7 +62,7 @@ public class MenuFragment extends MyFragment implements HttpResponseHandler {
         btnSpecialProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                coordinator.viewSpecialProducts();
+                coordinator.findCategories();
             }
         });
 
@@ -81,10 +77,5 @@ public class MenuFragment extends MyFragment implements HttpResponseHandler {
 
     public void setCoordinator(Coordinator coordinator) {
         this.coordinator = coordinator;
-    }
-
-    @Override
-    public void onSuccess(Object data) {
-
     }
 }

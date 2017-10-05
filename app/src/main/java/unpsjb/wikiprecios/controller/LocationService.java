@@ -34,6 +34,14 @@ public class LocationService implements LocationListener {
 
     //@TODO Para refactorizar
     //@TODO Agregar manejo de excepciones
+    private static LocationService instance;
+
+    public static LocationService getInstance(Context context){
+        if( instance == null){
+            instance = new LocationService(context);
+        }
+        return instance;
+    }
 
     @SuppressWarnings("MissingPermission")
     public LocationService(Context context) {

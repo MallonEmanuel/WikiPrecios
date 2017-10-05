@@ -1,6 +1,7 @@
 package unpsjb.wikiprecios.view;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 /**
@@ -14,4 +15,15 @@ import android.support.v4.app.Fragment;
  */
 public class MyFragment extends Fragment {
     // TODO mejorar con getInstace()
+
+    private static MyFragment instance;
+
+    public static MyFragment getInstance(MyFragment object){
+        if( instance == null){
+            instance = object;
+        }
+        return instance;
+    }
+
+
 }

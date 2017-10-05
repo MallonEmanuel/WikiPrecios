@@ -82,7 +82,7 @@ public class RegisterFragment extends MyFragment implements HttpResponseHandler 
         // Link to Login Screen
         btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                coordinator.back();
+                coordinator.viewLogin();
             }
         });
         return view;

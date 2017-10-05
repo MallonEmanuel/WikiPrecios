@@ -15,7 +15,6 @@ import unpsjb.wikiprecios.view.util.PreferenceFragment;
 public class SettingsFragment extends PreferenceFragment {
 
     public SettingsFragment() {
-        // Constructor Por Defecto
     }
 
     @Override

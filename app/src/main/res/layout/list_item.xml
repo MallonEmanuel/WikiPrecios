@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/category"
+        android:id="@+id/img"
         android:layout_marginRight="10dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true" />
@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textSize="20dp"
-        android:id="@+id/text1"
+        android:id="@+id/title"
         android:textColor="@color/white"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/category"
+        android:layout_toRightOf="@+id/img"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
         android:textStyle="bold" />
 
@@ -28,19 +28,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/text2"
+        android:id="@+id/subtitle"
         android:textColor="@color/white"
-        android:layout_below="@+id/text1"
-        android:layout_toRightOf="@+id/category"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/img"
         android:layout_alignParentBottom="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/favourite"
+        android:id="@+id/favorite"
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_alignBottom="@+id/text1"
+        android:layout_alignBottom="@+id/title"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

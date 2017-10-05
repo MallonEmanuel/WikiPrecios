@@ -49,23 +49,23 @@ public class ItemArrayAdapter extends ArrayAdapter<Listable> {
         }
 
         //Obteniendo instancias de los elementos
-        TextView title = (TextView) listItemView.findViewById(R.id.text1);
-        TextView subtitle = (TextView) listItemView.findViewById(R.id.text2);
-        ImageView category = (ImageView) listItemView.findViewById(R.id.category);
+        TextView title = (TextView) listItemView.findViewById(R.id.title);
+        TextView subtitle = (TextView) listItemView.findViewById(R.id.subtitle);
+        ImageView img = (ImageView) listItemView.findViewById(R.id.img);
 
-        ImageView img = (ImageView) listItemView.findViewById(R.id.favourite);
+        ImageView favorite = (ImageView) listItemView.findViewById(R.id.favorite);
 
         //Obteniendo instancia de la Commerce en la posición actual
         Listable item = getItem(position);
 
         title.setText(item.getTitle());
         subtitle.setText(item.getSubtitle());
-        category.setImageResource(item.getImg());
+        img.setImageResource(item.getImg());
 
         if (item.isFavourite()) {
-            img.setImageResource(R.drawable.ic_star);
+            favorite.setImageResource(R.drawable.ic_star);
         } else {
-            img.setImageResource(R.drawable.ic_space);
+            favorite.setImageResource(R.drawable.ic_space);
         }
 
         //Devolver al ListView la fila creada

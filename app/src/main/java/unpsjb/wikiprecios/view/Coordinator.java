@@ -2,6 +2,8 @@ package unpsjb.wikiprecios.view;
 
 import android.content.Context;
 
+import unpsjb.wikiprecios.model.Category;
+import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.model.Query;
 
 /**
@@ -11,9 +13,9 @@ import unpsjb.wikiprecios.model.Query;
  */
 public interface Coordinator {
 
-    Context getContext(); // TODO si es posible quitar el getCOntext()
-    Query getQuery();
-    void setQuery(Query query);
+//    Context getContext(); // TODO si es posible quitar el getCOntext()
+//    Query getQuery();
+//    void setQuery(Query query);
     // TODO Crear otra interface para getQuery y set Query e extender de ella
     // TODO Tambien crear OnClickListener y extender de ella
 
@@ -35,5 +37,15 @@ public interface Coordinator {
 
     void viewCommercesFavorites();
 
-    void viewSpecialProducts();
+    void viewSpecialProducts(Object data);
+
+    void viewCategories(Object data);
+
+    void findNearbyCommerces(String code);
+
+    void findSuggestedPrices(Commerce commerce);
+
+    void findCategories();
+
+    void findSpecialProducts(Category category);
 }

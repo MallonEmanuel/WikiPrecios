@@ -20,6 +20,10 @@ public class Query {
         this.location = location;
     }
 
+    public Query() {
+
+    }
+
     public int getId() {
         return id;
     }

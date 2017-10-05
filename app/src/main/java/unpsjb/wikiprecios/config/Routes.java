@@ -29,6 +29,11 @@ public class Routes {
 //
         public static String URL_SAVE_PRICE = "/wikiprecios/api/precio/registrar";
 //
-//        public static String URL_GET_R = "http://precios.draggon.com.ar/wikiPrecios/obtenerRubros/";
-//        public static String URL_GET_C = "http://precios.draggon.com.ar/wikiPrecios/obtenerCategorias/";
+//        [{"id":"1","letter":"CAR","name":"carnes"},{"id":"2","letter":"VER","name":"verduras"},{"id":"3","letter":"PAN","name":"panaderia"},{"id":"4","letter":"FRU","name":"frutas"}]
+        public static String URL_GET_RUBRO = "/wikiprecios/api/rubros";
+
+//    http://localhost/wikiprecios/api/rubro/categorias/?item=1
+//    [{"id":"1","item_id":"1","category":"peceto","special_product_code":"CAR1","unit":"KG"}]
+        public static String URL_GET_CATEGORY = "/wikiprecios/api/rubro/categorias";
+
 }

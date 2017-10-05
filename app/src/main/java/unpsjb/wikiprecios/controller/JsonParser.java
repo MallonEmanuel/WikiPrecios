@@ -23,4 +23,10 @@ public class JsonParser {
         return lst;
     }
 
+    public static JSONArray parseToJSONArray(Object data) throws JSONException {
+        JSONArray json = null;
+        json = new JSONArray(data.toString());
+        return json;
+    }
+
 }

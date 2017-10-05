@@ -13,7 +13,18 @@ import android.view.MenuItem;
 
 import com.facebook.FacebookSdk;
 
+import unpsjb.wikiprecios.controller.CategoryFinder;
+import unpsjb.wikiprecios.controller.CategoryParser;
+import unpsjb.wikiprecios.controller.CommerceParser;
+import unpsjb.wikiprecios.controller.LocationService;
+import unpsjb.wikiprecios.controller.CommerceFinder;
+import unpsjb.wikiprecios.controller.SpecialProductFinder;
+import unpsjb.wikiprecios.controller.SpecialProductParser;
+import unpsjb.wikiprecios.controller.SuggestedPriceFinder;
+import unpsjb.wikiprecios.model.Category;
+import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.model.Query;
+import unpsjb.wikiprecios.model.SpecialProduct;
 import unpsjb.wikiprecios.view.util.CloseApp;
 import unpsjb.wikiprecios.view.util.CloseSession;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -21,6 +32,10 @@ import unpsjb.wikiprecios.view.util.DialogManager;
 import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.config.AppPreference;
+import unpsjb.wikiprecios.view.util.OnClickListenerCategory;
+import unpsjb.wikiprecios.view.util.OnClickListenerCommerce;
+import unpsjb.wikiprecios.view.util.Message;
+import unpsjb.wikiprecios.view.util.OnClickListenerSpecialProduct;
 
 /**
  * Esta clase se ocupa de generar todos los fragmentos y de coordinador los mensajes
@@ -35,18 +50,17 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     RegisterFragment registerFragment;
     MenuFragment menuFragment;
     BarcodeScannerFragment barcodeScannerFragment;
-    ListViewCommerceFragment listViewCommerceFragment;
+    ListViewFragment listViewFragment;
     PriceFragment priceFragment;
     TabFragment tabFragment;
-
 
     Context context;//Referencia al contexto
     SessionManager sessionManager;// Se ocupa de la sesion de usuario
     DialogManager dialogManager; // Se encarga del control de dialogo
     CloseApp closeApp; // Se ocupa de cerrar la App
     CloseSession closeSession; // Se ocupa de cerrar la cesion
-
-    Query query;
+    LocationService locationService;
+    private Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,28 +75,30 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         setSupportActionBar(toolbar);
 
         // Declaracion de fragmentos
-        loginFragment = new LoginFragment();
+        loginFragment = (LoginFragment) LoginFragment.getInstance();
         settingFragment = new SettingsFragment();
         registerFragment = new RegisterFragment();
         menuFragment = new MenuFragment();
         barcodeScannerFragment = new BarcodeScannerFragment();
-        listViewCommerceFragment = new ListViewCommerceFragment();
+        listViewFragment = new ListViewFragment();
         priceFragment = new PriceFragment();
         tabFragment = new TabFragment();
+
+
 
         // Nombrar a MenuActivity como coordinador
         loginFragment.setCoordinator(this);
         registerFragment.setCoordinator(this);
         menuFragment.setCoordinator(this);
         barcodeScannerFragment.setCoordinator(this);
-        listViewCommerceFragment.setCoordinator(this);
         priceFragment.setCoordinator(this);
 
         // Mas inicializaciones
+        locationService = LocationService.getInstance(context);
         sessionManager = SessionManager.getInstance(context);
         dialogManager = new DialogManager();
-        closeApp = new CloseApp(this);
-        closeSession = new CloseSession(this);
+        closeApp = new CloseApp(this,context);
+        closeSession = new CloseSession(this,context);
 
         // Si existe un usuario logeado y preferio dejar la sesion iniciada, vamos al menu
         if (sessionManager.isLoggedIn() && AppPreference.isPrefSessionLoged(context)) {
@@ -113,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings  && !settingFragment.isVisible()) {
             addFragment(settingFragment);
             return true;
@@ -126,19 +141,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         super.onDestroy();
     }
 
-
-    @Override
-    public Context getContext() { return context; }
-
-    @Override
-    public Query getQuery() {
-        return query;
-    }
-
-    @Override
-    public void setQuery(Query query) {
-        this.query = query;
-    }
 
     @Override
     public void viewLogin() {
@@ -157,8 +159,79 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     @Override
     public void viewBarcodeScanner() {
-        addFragment(barcodeScannerFragment);
+        if(!locationService.isCanGetLocation()){
+             Message.show(context,context.getString(R.string.msg_services_disable));
+             return;
+        }else {
+            query = new Query();
+            query.setLocation(locationService.getLocation());
+            addFragment(barcodeScannerFragment);
+        }
     }
+
+    @Override
+    public void findNearbyCommerces(String code) {
+        query.setBarcode(code);
+        CommerceFinder finder = new CommerceFinder(this,context);
+        finder.sendRequest();
+    }
+
+    @Override
+    public void viewNearbyCommerces(Object data) {
+        listViewFragment.setData(data);
+        listViewFragment.setTitle(context.getText(R.string.title_commerce).toString());
+        listViewFragment.setOnItemClickListener(new OnClickListenerCommerce(this));
+        listViewFragment.setParser(new CommerceParser());
+        addFragment(listViewFragment);
+    }
+
+    @Override
+    public void findSuggestedPrices(Commerce commerce) {
+        query.setCommerce(commerce);
+        SuggestedPriceFinder finder = new SuggestedPriceFinder(this,context);
+        finder.setQuery(query);
+        finder.sendRequest();
+    }
+
+    @Override
+    public void findCategories() {
+        if(!locationService.isCanGetLocation()){
+            Message.show(context,context.getString(R.string.msg_services_disable));
+            return;
+        }else {
+            query = new Query();
+            query.setLocation(locationService.getLocation());
+            CategoryFinder finder = new CategoryFinder(this,context);
+            finder.sendRequest();
+        }
+    }
+
+    @Override
+    public void viewCategories(Object data) {
+        listViewFragment.setData(data);
+        listViewFragment.setTitle(context.getText(R.string.title_category).toString());
+        listViewFragment.setOnItemClickListener(new OnClickListenerCategory(this));
+        listViewFragment.setParser(new CategoryParser());
+        addFragment(listViewFragment);
+    }
+
+    @Override
+    public void findSpecialProducts(Category category) {
+        SpecialProductFinder finder = new SpecialProductFinder(this,context);
+        finder.setCategory(category);
+        finder.sendRequest();
+    }
+
+    @Override
+    public void viewSpecialProducts(Object data) {
+        ListViewFragment listViewFragment1 = new ListViewFragment();
+        listViewFragment1.setData(data);
+        listViewFragment1.setTitle(context.getText(R.string.title_special_product).toString());
+        listViewFragment1.setOnItemClickListener(new OnClickListenerSpecialProduct(this));
+        listViewFragment1.setParser(new SpecialProductParser());
+        addFragment(listViewFragment1);
+    }
+
 
     @Override
     public void closeView() {
@@ -173,14 +246,10 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         confirmClose("Esta seguro que desea cerrar la sesión",closeSession);
     }
 
-    @Override
-    public void viewNearbyCommerces(Object data) {
-        listViewCommerceFragment.setData(data);
-        addFragment(listViewCommerceFragment);
-    }
 
     @Override
     public void viewPrice() {
+        priceFragment.setQuery(query);
         addFragment(priceFragment);
     }
 
@@ -188,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewCommercesFavorites() {
         addFragment(tabFragment);
     }
+
 
 
     // agrega el fragmento indicado a la vista.

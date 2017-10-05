@@ -37,10 +37,10 @@ public class TabFragment extends MyFragment {
         mTabHost = (FragmentTabHost) view.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("fragmentb").setIndicator(LIST1_TAB_TAG),
-                RegisterFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("fragmentc").setIndicator(LIST2_TAB_TAG),
-                LoginFragment.class, null);
+//        mTabHost.addTab(mTabHost.newTabSpec("fragmentb").setIndicator(LIST1_TAB_TAG),
+//                RegisterFragment.class, null);
+//        mTabHost.addTab(mTabHost.newTabSpec("fragmentc").setIndicator(LIST2_TAB_TAG),
+//                LoginFragment.class, null);
 
         mTabHost.postDelayed(new Runnable() {
             @Override

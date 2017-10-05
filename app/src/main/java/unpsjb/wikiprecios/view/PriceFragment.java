@@ -19,6 +19,7 @@ import unpsjb.wikiprecios.config.Routes;
 import unpsjb.wikiprecios.controller.HttpHandler;
 import unpsjb.wikiprecios.controller.HttpResponseHandler;
 import unpsjb.wikiprecios.controller.SessionManager;
+import unpsjb.wikiprecios.model.Query;
 
 /**
  * Created by emanuel on 29/09/17.
@@ -37,6 +38,7 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
 
 
     private Coordinator coordinator;
+    private Query query;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +50,7 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
         inputPrice = (EditText) view.findViewById(R.id.price);
         titleQuery = (TextView) view.findViewById(R.id.title_query_price);
         inputPrice.requestFocus();
-        titleQuery.setText(context.getString(R.string.title_name_commerce) + coordinator.getQuery().getCommerce().getName()  + "\n" + context.getString(R.string.title_name_barcode) + coordinator.getQuery().getBarcode());
+        titleQuery.setText(context.getString(R.string.title_name_commerce) + query.getCommerce().getName()  + "\n" + context.getString(R.string.title_name_barcode) + query.getBarcode());
 
         continueButton = (Button) view.findViewById(R.id.btn_continue_price);
         cancelButton = (Button) view.findViewById(R.id.btn_cancel_price);
@@ -83,9 +85,9 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
         String base_url = AppPreference.getPrefBaseUrl(context);
 
         HttpHandler http = new HttpHandler(base_url + Routes.URL_SAVE_PRICE, HttpHandler.GET_REQUEST);
-        http.addParams("commerce", String.valueOf(coordinator.getQuery().getCommerce().getId()));
+        http.addParams("commerce", String.valueOf(query.getCommerce().getId()));
         http.addParams("price", String.valueOf(getPrice()));
-        http.addParams("product", String.valueOf(coordinator.getQuery().getBarcode()));
+        http.addParams("product", String.valueOf(query.getBarcode()));
         http.addParams("user", "'" + SessionManager.getInstance(context).getUserLoged());
         http.setListener(this);
         http.sendRequest();
@@ -125,5 +127,9 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
         }catch (Exception e){
             Log.e(TAG,e.getStackTrace().toString());
         }
+    }
+
+    public void setQuery(Query query) {
+        this.query = query;
     }
 }

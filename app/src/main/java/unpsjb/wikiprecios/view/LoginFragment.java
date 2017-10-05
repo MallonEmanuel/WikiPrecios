@@ -42,7 +42,7 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-
+    //TODO pasar el progress dialog al MainActivity
     private SessionManager session;
     private HttpHandler http;
     private Context context;
@@ -51,6 +51,10 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
 
     private LoginButton btnLoginFacebook;
     CallbackManager callbackManager;
+
+    public static MyFragment getInstance(){
+        return getInstance(new LoginFragment());
+    }
 
     //TODO registrar un usuario de facebook, al logearce. Para que dicho usuario pueda usar la app
 
@@ -168,7 +172,6 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
         http.addParams("password",password);
         http.setListener(this);
         http.sendRequest();
-
         pDialog.setMessage(context.getString(R.string.msg_logging));
         showDialog();
     }
