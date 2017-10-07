@@ -1,6 +1,5 @@
 package unpsjb.wikiprecios.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import unpsjb.wikiprecios.R;
-import unpsjb.wikiprecios.controller.SessionManager;
-import unpsjb.wikiprecios.controller.HttpResponseHandler;
 
 /**
  * Created by emanuel on 20/09/17.
@@ -69,7 +66,7 @@ public class MenuFragment extends MyFragment {
         btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                coordinator.viewCommercesFavorites();
+                coordinator.findCommerces();
             }
         });
         return view;

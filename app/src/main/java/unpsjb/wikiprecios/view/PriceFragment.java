@@ -20,6 +20,7 @@ import unpsjb.wikiprecios.controller.HttpHandler;
 import unpsjb.wikiprecios.controller.HttpResponseHandler;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.model.Query;
+import unpsjb.wikiprecios.view.util.Message;
 
 /**
  * Created by emanuel on 29/09/17.
@@ -29,7 +30,7 @@ import unpsjb.wikiprecios.model.Query;
  */
 public class PriceFragment extends MyFragment implements HttpResponseHandler {
     private static final String TAG = PriceFragment.class.getSimpleName();
-
+    // TODO refactor para no implementar HttpResponseHandler
     private Context context;
     private EditText inputPrice;
     private TextView titleQuery;
@@ -41,7 +42,7 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
     private Query query;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.price_view, container, false);
@@ -59,8 +60,7 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
             @Override
             public void onClick(View view) {
                 if (getPrice() == null) {
-                    Toast notificacion = Toast.makeText(context,context.getString(R.string.msg_enter_price), Toast.LENGTH_LONG);
-                    notificacion.show();
+                    Message.show(context,context.getString(R.string.msg_enter_price));
                 } else {
                     sendRequest();
                 }
@@ -119,11 +119,8 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
     @Override
     public void onSuccess(Object data) {
         try {
-            JSONObject json = (JSONObject) data;
-            if(json.has("newProduct")){
-                Toast.makeText(context,context.getString(R.string.msg_new_product),Toast.LENGTH_LONG).show();
-                coordinator.viewMenu();
-            }
+            Message.show(context,context.getString(R.string.msg_new_product));
+            coordinator.viewMenu();
         }catch (Exception e){
             Log.e(TAG,e.getStackTrace().toString());
         }

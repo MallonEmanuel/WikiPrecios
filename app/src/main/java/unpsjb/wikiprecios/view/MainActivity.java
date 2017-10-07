@@ -14,17 +14,14 @@ import android.view.MenuItem;
 import com.facebook.FacebookSdk;
 
 import unpsjb.wikiprecios.controller.CategoryFinder;
-import unpsjb.wikiprecios.controller.CategoryParser;
-import unpsjb.wikiprecios.controller.CommerceParser;
 import unpsjb.wikiprecios.controller.LocationService;
 import unpsjb.wikiprecios.controller.CommerceFinder;
+import unpsjb.wikiprecios.controller.NearbyCommerceFinder;
 import unpsjb.wikiprecios.controller.SpecialProductFinder;
-import unpsjb.wikiprecios.controller.SpecialProductParser;
 import unpsjb.wikiprecios.controller.SuggestedPriceFinder;
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.model.Query;
-import unpsjb.wikiprecios.model.SpecialProduct;
 import unpsjb.wikiprecios.view.util.CloseApp;
 import unpsjb.wikiprecios.view.util.CloseSession;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -32,10 +29,7 @@ import unpsjb.wikiprecios.view.util.DialogManager;
 import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.config.AppPreference;
-import unpsjb.wikiprecios.view.util.OnClickListenerCategory;
-import unpsjb.wikiprecios.view.util.OnClickListenerCommerce;
 import unpsjb.wikiprecios.view.util.Message;
-import unpsjb.wikiprecios.view.util.OnClickListenerSpecialProduct;
 
 /**
  * Esta clase se ocupa de generar todos los fragmentos y de coordinador los mensajes
@@ -43,14 +37,17 @@ import unpsjb.wikiprecios.view.util.OnClickListenerSpecialProduct;
  */
 public class MainActivity extends AppCompatActivity implements Coordinator {
     private static final String TAG = MainActivity.class.getSimpleName();
-
 //  Fragmentos
     SettingsFragment settingFragment;
     LoginFragment loginFragment;
     RegisterFragment registerFragment;
     MenuFragment menuFragment;
     BarcodeScannerFragment barcodeScannerFragment;
-    ListViewFragment listViewFragment;
+    ListViewFragment listViewNearbyCommerceFragment;
+    ListViewFragment listViewCategoryFragment;
+    ListViewFragment listViewSpecialProductFragment;
+
+
     PriceFragment priceFragment;
     TabFragment tabFragment;
 
@@ -80,11 +77,13 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         registerFragment = new RegisterFragment();
         menuFragment = new MenuFragment();
         barcodeScannerFragment = new BarcodeScannerFragment();
-        listViewFragment = new ListViewFragment();
+        // TODO refactorizar todas las clases cn getInstance
+        listViewNearbyCommerceFragment = new ListViewNearbyCommerceFragment();
+        listViewCategoryFragment = new ListViewCategoryFragment();
+        listViewSpecialProductFragment = new ListViewSpecialProductFragment();
+
         priceFragment = new PriceFragment();
         tabFragment = new TabFragment();
-
-
 
         // Nombrar a MenuActivity como coordinador
         loginFragment.setCoordinator(this);
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         super.onDestroy();
     }
 
-
     @Override
     public void viewLogin() {
         addFragment(loginFragment);
@@ -172,17 +170,17 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void findNearbyCommerces(String code) {
         query.setBarcode(code);
-        CommerceFinder finder = new CommerceFinder(this,context);
+        CommerceFinder finder = new NearbyCommerceFinder(this,context);
         finder.sendRequest();
     }
 
     @Override
     public void viewNearbyCommerces(Object data) {
-        listViewFragment.setData(data);
-        listViewFragment.setTitle(context.getText(R.string.title_commerce).toString());
-        listViewFragment.setOnItemClickListener(new OnClickListenerCommerce(this));
-        listViewFragment.setParser(new CommerceParser());
-        addFragment(listViewFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("data",data.toString());
+        bundle.putString("title",context.getText(R.string.title_commerce).toString());
+        listViewNearbyCommerceFragment.setArguments(bundle);
+        addFragment(listViewNearbyCommerceFragment);
     }
 
     @Override
@@ -197,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void findCategories() {
         if(!locationService.isCanGetLocation()){
             Message.show(context,context.getString(R.string.msg_services_disable));
-            return;
         }else {
             query = new Query();
             query.setLocation(locationService.getLocation());
@@ -208,11 +205,12 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     @Override
     public void viewCategories(Object data) {
-        listViewFragment.setData(data);
-        listViewFragment.setTitle(context.getText(R.string.title_category).toString());
-        listViewFragment.setOnItemClickListener(new OnClickListenerCategory(this));
-        listViewFragment.setParser(new CategoryParser());
-        addFragment(listViewFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("data",data.toString());
+        bundle.putString("title",context.getText(R.string.title_category).toString());
+        listViewCategoryFragment.setArguments(bundle);
+        addFragment(listViewCategoryFragment);
+
     }
 
     @Override
@@ -224,12 +222,27 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     @Override
     public void viewSpecialProducts(Object data) {
-        ListViewFragment listViewFragment1 = new ListViewFragment();
-        listViewFragment1.setData(data);
-        listViewFragment1.setTitle(context.getText(R.string.title_special_product).toString());
-        listViewFragment1.setOnItemClickListener(new OnClickListenerSpecialProduct(this));
-        listViewFragment1.setParser(new SpecialProductParser());
-        addFragment(listViewFragment1);
+        Bundle bundle = new Bundle();
+        bundle.putString("data",data.toString());
+        bundle.putString("title",context.getText(R.string.title_special_product).toString());
+        listViewSpecialProductFragment.setArguments(bundle);
+        addFragment(listViewSpecialProductFragment);
+    }
+
+    @Override
+    public void findCommerces() {
+        CommerceFinder finder = new CommerceFinder(this,context);
+        finder.sendRequest();
+    }
+
+
+    @Override
+    public void viewCommerces(Object data) {
+        Bundle bundle = new Bundle();
+        bundle.putString("data",data.toString());
+        bundle.putString("title","");
+        tabFragment.setArguments(bundle);
+        addFragment(tabFragment);
     }
 
 
@@ -252,12 +265,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         priceFragment.setQuery(query);
         addFragment(priceFragment);
     }
-
-    @Override
-    public void viewCommercesFavorites() {
-        addFragment(tabFragment);
-    }
-
 
 
     // agrega el fragmento indicado a la vista.

@@ -32,6 +32,6 @@ public class CommerceFinder extends Finder implements HttpResponseHandler {
 
     @Override
     public void onSuccess(Object commerces) {
-        coordinator.viewNearbyCommerces(commerces);
+        coordinator.viewCommerces(commerces);
     }
 }

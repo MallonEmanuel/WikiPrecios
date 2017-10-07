@@ -13,20 +13,18 @@ import java.util.List;
  */
 public class JsonParser {
 
-    public static List getList(Parseable p, JSONArray json) throws JSONException {
+    public static List getList(Parseable p, String data) throws JSONException {
+        JSONArray json = new JSONArray(data);
         List lst = new ArrayList<>();
-
         for (int n = 0; n < json.length(); n++) {
             JSONObject object = json.getJSONObject(n);
-            lst.add(p.parse(object));
+            Object elem = p.parse(object);
+
+            if(elem != null) {
+                lst.add(elem);
+            }
         }
         return lst;
-    }
-
-    public static JSONArray parseToJSONArray(Object data) throws JSONException {
-        JSONArray json = null;
-        json = new JSONArray(data.toString());
-        return json;
     }
 
 }

@@ -1,10 +1,7 @@
 package unpsjb.wikiprecios.view;
 
-import android.content.Context;
-
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
-import unpsjb.wikiprecios.model.Query;
 
 /**
  * Created by emanuel on 20/09/17.
@@ -35,7 +32,7 @@ public interface Coordinator {
 
     void viewPrice();
 
-    void viewCommercesFavorites();
+    void viewCommerces(Object data);
 
     void viewSpecialProducts(Object data);
 
@@ -48,4 +45,6 @@ public interface Coordinator {
     void findCategories();
 
     void findSpecialProducts(Category category);
+
+    void findCommerces();
 }

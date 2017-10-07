@@ -3,13 +3,15 @@ package unpsjb.wikiprecios.view.util;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.io.Serializable;
+
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
  * Created by emanuel on 05/10/17.
  */
-public class OnClickListenerCategory implements AdapterView.OnItemClickListener  {
+public class OnClickListenerCategory implements AdapterView.OnItemClickListener ,Serializable {
 
     private Coordinator coordinator;
 

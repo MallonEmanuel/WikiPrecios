@@ -7,9 +7,9 @@ import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Created by emanuel on 06/10/17.
  */
-public class OnClickListenerCommerce implements AdapterView.OnItemClickListener  {
+public class OnClickListenerCommerce implements AdapterView.OnItemClickListener {
 
     private Coordinator coordinator;
 
