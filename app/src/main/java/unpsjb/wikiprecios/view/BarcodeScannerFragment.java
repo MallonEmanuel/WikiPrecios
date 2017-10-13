@@ -17,8 +17,8 @@ import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 
-import unpsjb.wikiprecios.controller.CameraPreview;
 import unpsjb.wikiprecios.R;
+import unpsjb.wikiprecios.controller.CameraPreview;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**

@@ -1,12 +1,15 @@
 package unpsjb.wikiprecios.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import unpsjb.wikiprecios.R;
 
 /**
  * Created by emanuel on 29/09/17.
  * Esta clase permite recibir la información de los distintos comercios.
  */
-public class Commerce implements Listable {
+public class Commerce implements Listable, Parcelable {
     private static final String TAG = Commerce.class.getSimpleName();
 
     private int id;
@@ -35,6 +38,29 @@ public class Commerce implements Listable {
         this.favourite = favourite;
         this.category = R.drawable.ic_commerce;
     }
+
+    protected Commerce(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        address = in.readString();
+        city = in.readString();
+        province = in.readString();
+        country = in.readString();
+        favourite = in.readByte() != 0;
+        category = in.readInt();
+    }
+
+    public static final Creator<Commerce> CREATOR = new Creator<Commerce>() {
+        @Override
+        public Commerce createFromParcel(Parcel in) {
+            return new Commerce(in);
+        }
+
+        @Override
+        public Commerce[] newArray(int size) {
+            return new Commerce[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -149,4 +175,21 @@ public class Commerce implements Listable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeString(city);
+        parcel.writeString(province);
+        parcel.writeString(country);
+        parcel.writeByte((byte) (favourite ? 1 : 0));
+        parcel.writeInt(category);
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +14,28 @@ import android.view.MenuItem;
 
 import com.facebook.FacebookSdk;
 
-import unpsjb.wikiprecios.controller.CategoryFinder;
-import unpsjb.wikiprecios.controller.LocationService;
-import unpsjb.wikiprecios.controller.CommerceFinder;
-import unpsjb.wikiprecios.controller.NearbyCommerceFinder;
-import unpsjb.wikiprecios.controller.SpecialProductFinder;
-import unpsjb.wikiprecios.controller.SuggestedPriceFinder;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import unpsjb.wikiprecios.controller.parser.CategoryParser;
+import unpsjb.wikiprecios.controller.parser.CommerceParser;
+import unpsjb.wikiprecios.controller.parser.JsonParser;
+import unpsjb.wikiprecios.controller.parser.SpecialProductParser;
+import unpsjb.wikiprecios.http.CategoryHttpClient;
+import unpsjb.wikiprecios.service.LocationService;
+import unpsjb.wikiprecios.http.CommerceHttpClient;
+import unpsjb.wikiprecios.http.NearbyCommerceHttpClient;
+import unpsjb.wikiprecios.http.SpecialProductHttpClient;
+import unpsjb.wikiprecios.http.SuggestedPriceHttpClient;
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.model.Query;
+import unpsjb.wikiprecios.view.listview.ListViewCategoryFragment;
+import unpsjb.wikiprecios.view.listview.ListViewFragment;
+import unpsjb.wikiprecios.view.listview.ListViewNearbyCommerceFragment;
+import unpsjb.wikiprecios.view.listview.ListViewSpecialProductFragment;
 import unpsjb.wikiprecios.view.util.CloseApp;
 import unpsjb.wikiprecios.view.util.CloseSession;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -113,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     // Aqui se obtiene el resultado del login de facebook, que es enviado al callbackManager
     // en loginFragment
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        loginFragment.callbackManager.onActivityResult(requestCode, resultCode, data);
+        loginFragment.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -170,14 +184,15 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void findNearbyCommerces(String code) {
         query.setBarcode(code);
-        CommerceFinder finder = new NearbyCommerceFinder(this,context);
+        CommerceHttpClient finder = new NearbyCommerceHttpClient(this,context);
         finder.sendRequest();
     }
 
     @Override
     public void viewNearbyCommerces(Object data) {
         Bundle bundle = new Bundle();
-        bundle.putString("data",data.toString());
+        List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_commerce).toString());
         listViewNearbyCommerceFragment.setArguments(bundle);
         addFragment(listViewNearbyCommerceFragment);
@@ -186,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void findSuggestedPrices(Commerce commerce) {
         query.setCommerce(commerce);
-        SuggestedPriceFinder finder = new SuggestedPriceFinder(this,context);
+        SuggestedPriceHttpClient finder = new SuggestedPriceHttpClient(this,context);
         finder.setQuery(query);
         finder.sendRequest();
     }
@@ -198,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         }else {
             query = new Query();
             query.setLocation(locationService.getLocation());
-            CategoryFinder finder = new CategoryFinder(this,context);
+            CategoryHttpClient finder = new CategoryHttpClient(this,context);
             finder.sendRequest();
         }
     }
@@ -206,7 +221,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void viewCategories(Object data) {
         Bundle bundle = new Bundle();
-        bundle.putString("data",data.toString());
+        List<Parcelable> list = JsonParser.parseList(new CategoryParser(),data.toString());
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_category).toString());
         listViewCategoryFragment.setArguments(bundle);
         addFragment(listViewCategoryFragment);
@@ -215,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     @Override
     public void findSpecialProducts(Category category) {
-        SpecialProductFinder finder = new SpecialProductFinder(this,context);
+        SpecialProductHttpClient finder = new SpecialProductHttpClient(this,context);
         finder.setCategory(category);
         finder.sendRequest();
     }
@@ -223,7 +239,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void viewSpecialProducts(Object data) {
         Bundle bundle = new Bundle();
-        bundle.putString("data",data.toString());
+        List<Parcelable> list = JsonParser.parseList(new SpecialProductParser(),data.toString());
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_special_product).toString());
         listViewSpecialProductFragment.setArguments(bundle);
         addFragment(listViewSpecialProductFragment);
@@ -231,15 +248,21 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     @Override
     public void findCommerces() {
-        CommerceFinder finder = new CommerceFinder(this,context);
+        CommerceHttpClient finder = new CommerceHttpClient(this,context);
         finder.sendRequest();
+    }
+
+    @Override
+    public void viewAlertDialog(String question, DialogListener dialogListener) {
+        dialogManager.viewAlertDialog(this,question,dialogListener);
     }
 
 
     @Override
     public void viewCommerces(Object data) {
         Bundle bundle = new Bundle();
-        bundle.putString("data",data.toString());
+        List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title","");
         tabFragment.setArguments(bundle);
         addFragment(tabFragment);
@@ -258,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void logout() {
         confirmClose("Esta seguro que desea cerrar la sesión",closeSession);
     }
-
 
     @Override
     public void viewPrice() {

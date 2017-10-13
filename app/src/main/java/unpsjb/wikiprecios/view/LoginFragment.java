@@ -26,8 +26,8 @@ import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.config.Routes;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.config.AppPreference;
-import unpsjb.wikiprecios.controller.HttpHandler;
-import unpsjb.wikiprecios.controller.HttpResponseHandler;
+import unpsjb.wikiprecios.http.HttpHandler;
+import unpsjb.wikiprecios.http.HttpResponseHandler;
 
 /**
  * Created by emanuel on 20/09/17.
@@ -213,4 +213,7 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
         this.coordinator = coordinator;
     }
 
+    public CallbackManager getCallbackManager() {
+        return callbackManager;
+    }
 }

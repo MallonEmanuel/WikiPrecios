@@ -1,11 +1,14 @@
 package unpsjb.wikiprecios.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import unpsjb.wikiprecios.R;
 
 /**
  * Created by emanuel on 02/10/17.
  */
-public class SpecialProduct implements Listable {
+public class SpecialProduct implements Listable,Parcelable {
     private static final String TAG = SpecialProduct.class.getSimpleName();
 
     private int id;
@@ -23,6 +26,27 @@ public class SpecialProduct implements Listable {
         this.unit = unit;
         category = R.drawable.ic_space;
     }
+
+    protected SpecialProduct(Parcel in) {
+        id = in.readInt();
+        idCategory = in.readInt();
+        name = in.readString();
+        code = in.readString();
+        unit = in.readString();
+        category = in.readInt();
+    }
+
+    public static final Creator<SpecialProduct> CREATOR = new Creator<SpecialProduct>() {
+        @Override
+        public SpecialProduct createFromParcel(Parcel in) {
+            return new SpecialProduct(in);
+        }
+
+        @Override
+        public SpecialProduct[] newArray(int size) {
+            return new SpecialProduct[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -95,5 +119,20 @@ public class SpecialProduct implements Listable {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeInt(idCategory);
+        parcel.writeString(name);
+        parcel.writeString(code);
+        parcel.writeString(unit);
+        parcel.writeInt(category);
     }
 }

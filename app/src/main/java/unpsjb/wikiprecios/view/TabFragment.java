@@ -3,11 +3,14 @@ package unpsjb.wikiprecios.view;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import unpsjb.wikiprecios.R;
+import unpsjb.wikiprecios.view.listview.ListViewFavouriteCommerceFragment;
+import unpsjb.wikiprecios.view.listview.ListViewCommerceFragment;
 
 
 /**
@@ -34,47 +37,18 @@ public class TabFragment extends MyFragment {
         mTabHost = (FragmentTabHost) view.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
+        Log.e(TAG,getArguments().getParcelableArrayList("list").toString());
+
         mTabHost.addTab(mTabHost.newTabSpec("fragmentb").setIndicator(LIST1_TAB_TAG),
                 ListViewCommerceFragment.class, getArguments());
 
         mTabHost.addTab(mTabHost.newTabSpec("fragmentc").setIndicator(LIST2_TAB_TAG),
-                ListViewCommerceFavoriteFragment.class, getArguments() );
+                ListViewFavouriteCommerceFragment.class, getArguments() );
+
+
 
         return view;
     }
 
-//    @Override
-//    public void onViewCreated(View view, Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        listViewCommerceFragment.getListViewController().getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int i, long l) {
-//
-//                AlertDialog.Builder showPlace = new AlertDialog.Builder(
-//                        getActivity());
-//                showPlace.setMessage(context.getString(R.string.msg_add_to_favourites));
-//                showPlace.setPositiveButton(context.getString(R.string.btn_add), new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Commerce commerce = (Commerce) adapterView.getAdapter().getItem(i);
-//                        ArrayAdapter adapterCommerce = listViewCommerceFragment.getListViewController().getAdapter();
-//                        ArrayAdapter adapterFavorite = listViewCommerceFavoriteFragment.getListViewController().getAdapter();
-//                        int p = adapterCommerce.getPosition(commerce);
-//                        if (p == -1) {
-//                            commerce.setFavourite(true);
-//                            adapterCommerce.notifyDataSetChanged();
-//                            adapterFavorite.add(commerce);
-//                        }
-//                    }
-//                });
-//                showPlace.setNegativeButton(context.getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                showPlace.show();
-//                return false;
-//            }
-//        });
-//
-//    }
 
 }

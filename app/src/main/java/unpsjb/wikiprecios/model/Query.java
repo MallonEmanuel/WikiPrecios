@@ -1,13 +1,15 @@
 package unpsjb.wikiprecios.model;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by emanuel on 29/09/17.
  * Esta clase permite guardar la información pertinente para realizar la consulta del
  * precio de un producto.
  */
-public class Query {
+public class Query implements Parcelable{
     private static String TAG = Query.class.getSimpleName();
     private int id;
     private String barcode;
@@ -23,6 +25,25 @@ public class Query {
     public Query() {
 
     }
+
+    protected Query(Parcel in) {
+        id = in.readInt();
+        barcode = in.readString();
+        location = in.readParcelable(Location.class.getClassLoader());
+        commerce = in.readParcelable(Commerce.class.getClassLoader());
+    }
+
+    public static final Creator<Query> CREATOR = new Creator<Query>() {
+        @Override
+        public Query createFromParcel(Parcel in) {
+            return new Query(in);
+        }
+
+        @Override
+        public Query[] newArray(int size) {
+            return new Query[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -62,5 +83,18 @@ public class Query {
 
     public void setCommerce(Commerce commerce) {
         this.commerce = commerce;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(barcode);
+        parcel.writeParcelable(location, i);
+        parcel.writeParcelable(commerce, i);
     }
 }

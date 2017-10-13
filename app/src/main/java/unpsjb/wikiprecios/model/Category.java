@@ -1,11 +1,14 @@
 package unpsjb.wikiprecios.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import unpsjb.wikiprecios.R;
 
 /**
  * Created by emanuel on 02/10/17.
  */
-public class Category implements Listable{
+public class Category implements Listable,Parcelable{
 
     private int id;
     private String initials;
@@ -18,6 +21,25 @@ public class Category implements Listable{
         this.name = nombre;
         this.img =  R.drawable.ic_space;
     }
+
+    protected Category(Parcel in) {
+        id = in.readInt();
+        initials = in.readString();
+        name = in.readString();
+        img = in.readInt();
+    }
+
+    public static final Creator<Category> CREATOR = new Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -68,4 +90,16 @@ public class Category implements Listable{
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(initials);
+        parcel.writeString(name);
+        parcel.writeInt(img);
+    }
 }

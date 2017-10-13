@@ -2,7 +2,7 @@ package unpsjb.wikiprecios.config;
 
 /**
  * Created by emanuel on 20/09/17.
- * Contiene las rutas de las consultas a realizar
+ * Contiene las rutas de las consultas Http a realizar
  */
 public class Routes {
 

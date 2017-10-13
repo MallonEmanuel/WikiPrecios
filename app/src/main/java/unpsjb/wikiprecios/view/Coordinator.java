@@ -1,7 +1,10 @@
 package unpsjb.wikiprecios.view;
 
+import android.app.Activity;
+
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
+import unpsjb.wikiprecios.view.util.DialogListener;
 
 /**
  * Created by emanuel on 20/09/17.
@@ -47,4 +50,6 @@ public interface Coordinator {
     void findSpecialProducts(Category category);
 
     void findCommerces();
+
+    void viewAlertDialog(String question,DialogListener dialogListener);
 }

@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.config.AppPreference;
 import unpsjb.wikiprecios.config.Routes;
-import unpsjb.wikiprecios.controller.HttpHandler;
-import unpsjb.wikiprecios.controller.HttpResponseHandler;
+import unpsjb.wikiprecios.http.HttpHandler;
+import unpsjb.wikiprecios.http.HttpResponseHandler;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.model.Query;
 import unpsjb.wikiprecios.view.util.Message;
