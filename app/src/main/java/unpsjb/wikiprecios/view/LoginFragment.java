@@ -28,12 +28,13 @@ import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.config.AppPreference;
 import unpsjb.wikiprecios.http.HttpHandler;
 import unpsjb.wikiprecios.http.HttpResponseHandler;
+import unpsjb.wikiprecios.view.util.Message;
 
 /**
  * Created by emanuel on 20/09/17.
  * Este fragmento permite al usuario logearce en el sistema.
  */
-public class LoginFragment  extends MyFragment implements HttpResponseHandler {
+public class LoginFragment  extends MyFragment{
     private static final String TAG = LoginFragment.class.getSimpleName();
 
 //  Componentes Visuales
@@ -41,10 +42,8 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
     private Button btnLinkToRegister;
     private EditText inputEmail;
     private EditText inputPassword;
-    private ProgressDialog pDialog;
-    //TODO pasar el progress dialog al MainActivity
+
     private SessionManager session;
-    private HttpHandler http;
     private Context context;
 
     private Coordinator coordinator;
@@ -69,10 +68,6 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
         inputPassword = (EditText) view.findViewById(R.id.login_password);
         btnLogin = (Button) view.findViewById(R.id.login_btn);
         btnLinkToRegister = (Button) view.findViewById(R.id.link_to_register_screen_btn);
-
-        // Progress dialog
-        pDialog = new ProgressDialog(context);
-        pDialog.setCancelable(false);
 
         // Session manager
         session = SessionManager.getInstance(context);
@@ -111,12 +106,12 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
 
                     @Override
                     public void onCancel() {
-                        message("LoginFacebook.callback.onCancel");
+                        Message.show(context,"LoginFacebook.callback.onCancel");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        message("LoginFacebook.callback.exception");
+                        Message.show(context,"LoginFacebook.callback.exception");
                     }
                 });// Fin Facebook callback
 
@@ -130,10 +125,10 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
                 // Check for empty data in the form
                 if (mail.isEmpty() || password.isEmpty()) {
                     // Prompt user to enter credentials
-                    message(context.getString(R.string.msg_logging_enter_credential));
+                    Message.show(context,context.getString(R.string.msg_logging_enter_credential));
                 } else {
                     // login user
-                    checkLogin(mail, password);
+                    coordinator.checkLogin(mail, password);
                 }
             }
         });
@@ -149,7 +144,6 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
         return view;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -159,54 +153,6 @@ public class LoginFragment  extends MyFragment implements HttpResponseHandler {
     public void onResume(){
         super.onResume();
         inputPassword.setText("");
-    }
-
-    /**
-     * function to verify login details in mysql db
-     */
-    private void checkLogin(final String mail, final String password) {
-
-        String base_url = AppPreference.getPrefBaseUrl(context);
-        http = new HttpHandler(base_url + Routes.URL_LOGIN, HttpHandler.GET_REQUEST);
-        http.addParams("mail",mail);
-        http.addParams("password",password);
-        http.setListener(this);
-        http.sendRequest();
-        pDialog.setMessage(context.getString(R.string.msg_logging));
-        showDialog();
-    }
-
-
-    @Override
-    public void onSuccess(Object data) {
-        hideDialog();
-        try {
-            JSONObject json = (JSONObject) data;
-            if (json.has("noUser")) {
-                message(context.getString(R.string.msg_logging_error));
-            } else {
-                session.setLogin(true, json.get("mail").toString(),json.get("password").toString());
-                coordinator.viewMenu();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            message(context.getString(R.string.msg_logging_json_error));
-        }
-    }
-
-
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-    private void message(String message) {
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
     }
 
     public void setCoordinator(Coordinator coordinator){

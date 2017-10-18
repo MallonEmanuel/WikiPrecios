@@ -26,6 +26,7 @@ public class SpecialProductHttpClient extends HttpClient implements HttpResponse
         http.addParams("item", String.valueOf(category.getId()));
         http.setListener(this);
         http.sendRequest();
+        coordinator.showDialog("Obteniendo lista de productos especiales...");
     }
 
     public void setCategory(Category category) {
@@ -34,6 +35,7 @@ public class SpecialProductHttpClient extends HttpClient implements HttpResponse
 
     @Override
     public void onSuccess(Object data) {
+        coordinator.hideDialog();
         coordinator.viewSpecialProducts(data);
     }
 

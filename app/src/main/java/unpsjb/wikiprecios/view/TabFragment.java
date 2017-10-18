@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,6 @@ public class TabFragment extends MyFragment {
         mTabHost.addTab(mTabHost.newTabSpec("fragmentc").setIndicator(LIST2_TAB_TAG),
                 ListViewFavouriteCommerceFragment.class, getArguments() );
 
-
-
         return view;
     }
-
-
 }

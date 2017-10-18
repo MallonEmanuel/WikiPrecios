@@ -30,10 +30,12 @@ public class CommerceHttpClient extends HttpClient implements HttpResponseHandle
         http.addParams("usuario", SessionManager.getInstance(context).getUserLoged());
         http.setListener(this);
         http.sendRequest();
+        coordinator.showDialog("Obteniendo lista de comercios...");
     }
 
     @Override
     public void onSuccess(Object commerces) {
+        coordinator.hideDialog();
         coordinator.viewCommerces(commerces);
     }
 }

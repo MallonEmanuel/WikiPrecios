@@ -1,7 +1,5 @@
 package unpsjb.wikiprecios.view;
 
-import android.app.Activity;
-
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -52,4 +50,14 @@ public interface Coordinator {
     void findCommerces();
 
     void viewAlertDialog(String question,DialogListener dialogListener);
+
+    void saveFavourites();
+
+    void hideDialog();
+
+    void showDialog(String string);
+
+    void checkLogin(String mail, String password);
+
+    void registerUser(String surname, String name, String email, String password);
 }

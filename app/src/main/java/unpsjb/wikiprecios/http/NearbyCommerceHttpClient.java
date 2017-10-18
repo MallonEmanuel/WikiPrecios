@@ -15,6 +15,7 @@ public class NearbyCommerceHttpClient extends CommerceHttpClient {
 
     @Override
     public void onSuccess(Object commerces) {
+        coordinator.hideDialog();
         coordinator.viewNearbyCommerces(commerces);
     }
 }

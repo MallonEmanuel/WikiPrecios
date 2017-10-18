@@ -21,10 +21,12 @@ public class CategoryHttpClient extends HttpClient implements HttpResponseHandle
         HttpHandler http = new HttpHandler(base_url + Routes.URL_GET_RUBRO, HttpHandler.GET_REQUEST);
         http.setListener(this);
         http.sendRequest();
+        coordinator.showDialog("Obteniendo lista de categorias...");
     }
 
     @Override
     public void onSuccess(Object categories) {
+        coordinator.hideDialog();
         coordinator.viewCategories(categories);
     }
 }

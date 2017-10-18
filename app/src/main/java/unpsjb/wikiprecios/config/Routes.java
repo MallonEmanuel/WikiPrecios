@@ -36,4 +36,6 @@ public class Routes {
 //    [{"id":"1","item_id":"1","category":"peceto","special_product_code":"CAR1","unit":"KG"}]
         public static String URL_GET_CATEGORY = "/wikiprecios/api/rubro/categorias";
 
+//      http://localhost/wikiprecios/api/favorito/registrar/?user="emanuelbalcazar13@gmail.com"&commerce=1,2,3
+        public static String ULR_SAVE_FAVOURITES_COMMERCES = "/wikiprecios/api/favorito/registrar";
 }

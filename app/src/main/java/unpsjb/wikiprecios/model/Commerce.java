@@ -170,10 +170,6 @@ public class Commerce implements Listable, Parcelable {
         return favourite;
     }
 
-    public String toString() {
-        return name + ", " + address ;
-    }
-
 
     @Override
     public int describeContents() {
@@ -191,5 +187,10 @@ public class Commerce implements Listable, Parcelable {
         parcel.writeString(country);
         parcel.writeByte((byte) (favourite ? 1 : 0));
         parcel.writeInt(category);
+    }
+
+    @Override
+    public String toString() {
+        return name+" "+favourite;
     }
 }

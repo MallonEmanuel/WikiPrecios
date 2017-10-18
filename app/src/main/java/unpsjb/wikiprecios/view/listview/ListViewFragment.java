@@ -35,7 +35,6 @@ public class ListViewFragment extends MyFragment {
 
         List list = new ArrayList<Listable>();
 
-        Log.e("___________","onCreate");
         if(getArguments() != null || !getArguments().isEmpty()){
             title = getArguments().getString("title");
             list = getArguments().getParcelableArrayList("list");
