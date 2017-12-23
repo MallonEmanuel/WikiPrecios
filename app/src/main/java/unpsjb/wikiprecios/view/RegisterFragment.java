@@ -36,6 +36,7 @@ public class RegisterFragment extends MyFragment {
 
         View view = inflater.inflate(R.layout.register_view, container, false);
         context = view.getContext();
+        coordinator = (Coordinator) getActivity();
 
         inputName = (EditText) view.findViewById(R.id.register_name);
         inputSurname = (EditText) view.findViewById(R.id.register_surname);
@@ -69,7 +70,4 @@ public class RegisterFragment extends MyFragment {
         return view;
     }
 
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
-    }
 }

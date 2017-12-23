@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
+//    maven { url "https://jitpack.io" }
 }
 
 android {
@@ -35,5 +36,8 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     // Import barcode scaner
     compile 'me.dm7.barcodescanner:zbar:1.8.2'
+    //osm droid del cholky
+    compile 'org.osmdroid:osmdroid-android:5.6.5'
 
+//    compile 'com.github.MKergall:osmbonuspack:6.4'
 }

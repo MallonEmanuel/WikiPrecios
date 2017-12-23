@@ -46,7 +46,7 @@ public class ListViewFragment extends MyFragment {
         if (filter != null){
             list = filter.filter(list);
         }
-
+            // TODO sacar eventos a clase hija
             //Instancia del ListView
             ListView listView = (ListView) view.findViewById(R.id.list);
             listViewController = new ListViewController(getContext(),listView,list);

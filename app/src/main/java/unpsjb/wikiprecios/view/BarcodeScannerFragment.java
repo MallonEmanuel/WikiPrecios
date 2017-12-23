@@ -51,7 +51,7 @@ public class BarcodeScannerFragment extends MyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        coordinator = (Coordinator) getActivity();
         View view = inflater.inflate(R.layout.barcode_scanner_view, container, false);
         initControls(view);
 
@@ -172,7 +172,4 @@ public class BarcodeScannerFragment extends MyFragment {
         }
     };
 
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
-    }
 }

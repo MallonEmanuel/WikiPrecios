@@ -14,7 +14,7 @@ import unpsjb.wikiprecios.R;
  */
 public class MenuFragment extends MyFragment {
 
-    private Button btnUser;
+    private Button btnTest;
     private Button btnCamera;
     private Button btnSpecialProduct;
     private Button btnFavourite;
@@ -27,8 +27,9 @@ public class MenuFragment extends MyFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.menu_view, container, false);
+        coordinator = (Coordinator) getActivity();
 
-        btnUser = (Button) view.findViewById(R.id.btn_user_menu);
+        btnTest = (Button) view.findViewById(R.id.btn_test);
         btnCamera = (Button) view.findViewById(R.id.btn_camera_menu);
         btnSpecialProduct = (Button) view.findViewById(R.id.btn_special_product_menu);
         btnFavourite = (Button) view.findViewById(R.id.btn_favourite_menu);
@@ -69,10 +70,14 @@ public class MenuFragment extends MyFragment {
                 coordinator.findCommerces();
             }
         });
+
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+coordinator.viewMap();
+            }
+        });
         return view;
     }
 
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
-    }
 }

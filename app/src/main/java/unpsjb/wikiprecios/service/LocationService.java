@@ -7,6 +7,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import unpsjb.wikiprecios.view.util.Message;
+
 /**
  * Created by ema on 16/09/2015.
  * Esta clase permite obtener la ubicacion del usuario al momento de realizar la
@@ -85,9 +87,9 @@ public class LocationService implements LocationListener {
 
     public Location getLocation() {
 
-        if (gpsLocation != null && networkLocation != null) {
-            return locationComparator.getBetterLocation(gpsLocation, networkLocation);
-        }
+//        if (gpsLocation != null && networkLocation != null) {
+//            return locationComparator.getBetterLocation(gpsLocation, networkLocation);
+//        }
         if (gpsLocation != null) {
             return gpsLocation;
         }
@@ -100,6 +102,7 @@ public class LocationService implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Log.e(TAG,"onLocationChanged " + location.getProvider());
+        Message.show(context,location.getProvider());
         if(location.getProvider() == LocationManager.NETWORK_PROVIDER ){
             networkLocation = location;
         }else {
@@ -125,4 +128,5 @@ public class LocationService implements LocationListener {
     public boolean isCanGetLocation() {
         return canGetLocation;
     }
+
 }

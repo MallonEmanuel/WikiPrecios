@@ -1,6 +1,5 @@
 package unpsjb.wikiprecios.view;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -23,11 +21,7 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONObject;
 
 import unpsjb.wikiprecios.R;
-import unpsjb.wikiprecios.config.Routes;
 import unpsjb.wikiprecios.controller.SessionManager;
-import unpsjb.wikiprecios.config.AppPreference;
-import unpsjb.wikiprecios.http.HttpHandler;
-import unpsjb.wikiprecios.http.HttpResponseHandler;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
@@ -63,6 +57,7 @@ public class LoginFragment  extends MyFragment{
 
         View view = inflater.inflate(R.layout.login_view, container, false);
         context = view.getContext();
+        coordinator = (Coordinator) getActivity();
 
         inputEmail = (EditText) view.findViewById(R.id.login_email);
         inputPassword = (EditText) view.findViewById(R.id.login_password);
@@ -153,10 +148,6 @@ public class LoginFragment  extends MyFragment{
     public void onResume(){
         super.onResume();
         inputPassword.setText("");
-    }
-
-    public void setCoordinator(Coordinator coordinator){
-        this.coordinator = coordinator;
     }
 
     public CallbackManager getCallbackManager() {

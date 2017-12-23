@@ -38,4 +38,11 @@ public class Routes {
 
 //      http://localhost/wikiprecios/api/favorito/registrar/?user="emanuelbalcazar13@gmail.com"&commerce=1,2,3
         public static String ULR_SAVE_FAVOURITES_COMMERCES = "/wikiprecios/api/favorito/registrar";
+
+//        http://localhost/wikiprecios/api/comercio/registrar/?name="La anonima"&address
+//        ="Jujuy 1330"&latitude=-42.7805146&longitude=-65.0447228&
+//        city="Puerto Madryn"&province="Chubut"&country="Argentina"
+
+        public static String URL_SAVE_COMMERCE = "/wikiprecios/api/comercio/registrar";
+
 }

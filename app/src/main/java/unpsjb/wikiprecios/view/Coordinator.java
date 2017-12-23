@@ -1,5 +1,7 @@
 package unpsjb.wikiprecios.view;
 
+import android.location.Location;
+
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -10,12 +12,6 @@ import unpsjb.wikiprecios.view.util.DialogListener;
  * una Query.
  */
 public interface Coordinator {
-
-//    Context getContext(); // TODO si es posible quitar el getCOntext()
-//    Query getQuery();
-//    void setQuery(Query query);
-    // TODO Crear otra interface para getQuery y set Query e extender de ella
-    // TODO Tambien crear OnClickListener y extender de ella
 
     void viewLogin();
     void viewRegister();
@@ -60,4 +56,10 @@ public interface Coordinator {
     void checkLogin(String mail, String password);
 
     void registerUser(String surname, String name, String email, String password);
+
+    void savePrice();
+
+    void viewMap();
+
+    void saveCommerce(Location location, String name);
 }

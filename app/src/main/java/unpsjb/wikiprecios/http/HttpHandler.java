@@ -64,12 +64,7 @@ public class HttpHandler extends JsonHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-        try {
-            Log.e("HttpHandler Success", response.toString());
              listener.onSuccess(response);
-        } catch (Exception e) {
-            Log.e("HttpHandler Excepcion", e.toString());
-        }
     }
 
     @Override
@@ -81,13 +76,7 @@ public class HttpHandler extends JsonHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        try {
-            Log.e("HttpHandler Success", response.toString());
             listener.onSuccess(response);
-        } catch (Exception e) {
-            Log.e("HttpHandler Excepcion", e.toString());
-
-        }
     }
 
     @Override

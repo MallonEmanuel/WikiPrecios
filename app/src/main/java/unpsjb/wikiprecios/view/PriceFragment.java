@@ -25,9 +25,9 @@ import unpsjb.wikiprecios.view.util.Message;
  * este fragmento se mostrara si el producto no existe en el sistema, o cuando
  * el usuario quiera introducir el precio manualmente.
  */
-public class PriceFragment extends MyFragment implements HttpResponseHandler {
+public class PriceFragment extends MyFragment{
     private static final String TAG = PriceFragment.class.getSimpleName();
-    // TODO refactor para no implementar HttpResponseHandler
+
     private Context context;
     private EditText inputPrice;
     private TextView titleQuery;
@@ -44,6 +44,9 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
 
         View view = inflater.inflate(R.layout.price_view, container, false);
         context = view.getContext();
+        coordinator = (Coordinator) getActivity();
+
+        query = getArguments().getParcelable("query");
 
         inputPrice = (EditText) view.findViewById(R.id.price);
         titleQuery = (TextView) view.findViewById(R.id.title_query_price);
@@ -59,7 +62,8 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
                 if (getPrice() == null) {
                     Message.show(context,context.getString(R.string.msg_enter_price));
                 } else {
-                    sendRequest();
+                    query.setPrice(getPrice());
+                    coordinator.savePrice();
                 }
             }
         });
@@ -75,23 +79,6 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
     }
 
     /**
-     * Se ocupa de realizar la consulta, que permite al usuario ver los precios del producto buscado en los demas comercios.
-     */
-    private void sendRequest() {
-
-        String base_url = AppPreference.getPrefBaseUrl(context);
-
-        HttpHandler http = new HttpHandler(base_url + Routes.URL_SAVE_PRICE, HttpHandler.GET_REQUEST);
-        http.addParams("commerce", String.valueOf(query.getCommerce().getId()));
-        http.addParams("price", String.valueOf(getPrice()));
-        http.addParams("product", String.valueOf(query.getBarcode()));
-        http.addParams("user", "'" + SessionManager.getInstance(context).getUserLoged());
-        http.setListener(this);
-        http.sendRequest();
-    }
-
-
-    /**
      * Obtiene el precio ingresado por el usuario, si es invalido retorna null
      * @return
      */
@@ -101,29 +88,11 @@ public class PriceFragment extends MyFragment implements HttpResponseHandler {
         }
         Double p;
         try {
-            p=Double.parseDouble(inputPrice.getText().toString());
+            p = Double.parseDouble(inputPrice.getText().toString());
         }catch (Exception e){
             return null;
         }
         return p;
     }
 
-
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
-    }
-
-    @Override
-    public void onSuccess(Object data) {
-        try {
-            Message.show(context,context.getString(R.string.msg_new_product));
-            coordinator.viewMenu();
-        }catch (Exception e){
-            Log.e(TAG,e.getStackTrace().toString());
-        }
-    }
-
-    public void setQuery(Query query) {
-        this.query = query;
-    }
 }

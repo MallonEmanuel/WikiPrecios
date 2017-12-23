@@ -1,8 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/bg_app"
     >
     <LinearLayout
@@ -26,12 +24,12 @@
             android:id="@+id/title_menu" />
 
         <Button
-            android:id="@+id/btn_user_menu"
+            android:id="@+id/btn_test"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
             android:background="@color/btn_lolipop_bg"
-            android:text="@string/btn_user"
+            android:text="TEST"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />

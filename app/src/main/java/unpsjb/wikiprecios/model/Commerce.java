@@ -39,6 +39,20 @@ public class Commerce implements Listable, Parcelable {
         this.category = R.drawable.ic_commerce;
     }
 
+    public Commerce(int id, String name, String address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.category = R.drawable.ic_commerce;
+    }
+
+    public Commerce(int id, String name, String address, int category) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.category = category;
+    }
+
     protected Commerce(Parcel in) {
         id = in.readInt();
         name = in.readString();

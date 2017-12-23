@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    android:gravity="center"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="47dp"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:text="Indique donde se encuentra el comercio"
+        android:gravity="center"
+        android:id="@+id/title_list" />
+
+
+    <org.osmdroid.views.MapView android:id="@+id/mapa"
+        android:layout_width="fill_parent"
+        android:layout_height="287dp"
+        android:layout_weight="0.01" />
+
+    <EditText
+        android:id="@+id/input_commerce_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="Nombre de comercio"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:inputType="textCapWords"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
+    <Button
+        android:id="@+id/btn_save_commerce"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/btn_lolipop_bg"
+        android:text="Guardar y continuar"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_cancel_commerce"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/btn_lolipop_bg"
+        android:text="Cancelar"
+        android:textColor="@color/white" />
+
+</LinearLayout>
+</RelativeLayout>

@@ -17,7 +17,6 @@ public class ListViewNearbyCommerceFragment extends ListViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-//        parser = new CommerceParser();
         onItemClickListener = new OnClickListenerNearbyCommerce((Coordinator) getActivity());
         return super.onCreateView(inflater, container, savedInstanceState);
     }

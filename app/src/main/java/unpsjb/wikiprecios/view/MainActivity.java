@@ -3,6 +3,7 @@ package unpsjb.wikiprecios.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 
 import android.os.Parcelable;
@@ -28,7 +29,9 @@ import unpsjb.wikiprecios.controller.parser.SpecialProductParser;
 import unpsjb.wikiprecios.http.CategoryHttpClient;
 import unpsjb.wikiprecios.http.LoginHttpClient;
 import unpsjb.wikiprecios.http.RegisterHttpClient;
+import unpsjb.wikiprecios.http.SaveCommerceHttpClient;
 import unpsjb.wikiprecios.http.SaveFavouriteCommerceHttpClient;
+import unpsjb.wikiprecios.http.SavePriceHttpClient;
 import unpsjb.wikiprecios.service.LocationService;
 import unpsjb.wikiprecios.http.CommerceHttpClient;
 import unpsjb.wikiprecios.http.NearbyCommerceHttpClient;
@@ -77,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     CloseApp closeApp; // Se ocupa de cerrar la App
     CloseSession closeSession; // Se ocupa de cerrar la cesion
     LocationService locationService;
-    private Query query;
+    ProgressDialog pDialog;
 
-    private ProgressDialog pDialog;
+    private Query query;
 
 
     @Override
@@ -108,13 +111,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         priceFragment = new PriceFragment();
         tabFragment = new TabFragment();
 
-        // Nombrar a MenuActivity como coordinador
-        loginFragment.setCoordinator(this);
-        registerFragment.setCoordinator(this);
-        menuFragment.setCoordinator(this);
-        barcodeScannerFragment.setCoordinator(this);
-        priceFragment.setCoordinator(this);
-
         // Mas inicializaciones
         locationService = LocationService.getInstance(context);
         sessionManager = SessionManager.getInstance(context);
@@ -137,13 +133,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
     }
 
-    @Override
-    public void showDialog(String message) {
-        if (!pDialog.isShowing()){
-            pDialog.setMessage(message);
-            pDialog.show();
-        }
-    }
 
     @Override
     public void checkLogin(String mail, String password) {
@@ -161,6 +150,14 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         client.setEmail(email);
         client.setPassword(password);
         client.sendRequest();
+    }
+
+    @Override
+    public void showDialog(String message) {
+        if (!pDialog.isShowing()){
+            pDialog.setMessage(message);
+            pDialog.show();
+        }
     }
 
     @Override
@@ -196,11 +193,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
-    }
-
-    @Override
     public void viewLogin() {
         addFragment(loginFragment);
     }
@@ -211,9 +203,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     }
 
     @Override
-    public void viewMenu() {
-        addFragment(menuFragment);
-    }
+    public void viewMenu() { addFragment(menuFragment); }
 
     @Override
     public void viewBarcodeScanner() {
@@ -238,9 +228,11 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewNearbyCommerces(Object data) {
         Bundle bundle = new Bundle();
         List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
+        Commerce addCommerce = new Commerce(-1,"Agregar comercio","Si el comercio no se encuentra en la lista, por favor agreguelo",R.drawable.ic_add);
+        list.add(addCommerce );
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_commerce).toString());
-        listViewNearbyCommerceFragment.setArguments(bundle);
+        setArguments(listViewNearbyCommerceFragment,bundle);
         addFragment(listViewNearbyCommerceFragment);
     }
 
@@ -251,6 +243,41 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         finder.setQuery(query);
         finder.sendRequest();
     }
+
+    @Override
+    public void viewPrice() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("query",query);
+        setArguments(priceFragment,bundle);
+        addFragment(priceFragment);
+    }
+
+
+    @Override
+    public void savePrice() {
+        SavePriceHttpClient client = new SavePriceHttpClient(this,context);
+        client.setQuery(query);
+        client.sendRequest();
+    }
+
+    @Override
+    public void viewMap() {
+//        List list = listViewNearbyCommerceFragment.getArguments().getParcelableArrayList("list");
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+        MapFragment mapFragment = new MapFragment();
+//        setArguments(mapFragment,bundle);
+        addFragment(mapFragment);
+    }
+
+    @Override
+    public void saveCommerce(Location location, String name) {
+        SaveCommerceHttpClient client = new SaveCommerceHttpClient(this,context);
+        client.setName(name);
+        client.setLocation(location);
+        client.sendRequest();
+    }
+
 
     @Override
     public void findCategories() {
@@ -270,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         List<Parcelable> list = JsonParser.parseList(new CategoryParser(),data.toString());
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_category).toString());
-        listViewCategoryFragment.setArguments(bundle);
+        setArguments(listViewCategoryFragment,bundle);
         addFragment(listViewCategoryFragment);
 
     }
@@ -288,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         List<Parcelable> list = JsonParser.parseList(new SpecialProductParser(),data.toString());
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_special_product).toString());
-        listViewSpecialProductFragment.setArguments(bundle);
+        setArguments(listViewSpecialProductFragment,bundle);
         addFragment(listViewSpecialProductFragment);
     }
 
@@ -299,39 +326,14 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     }
 
     @Override
-    public void viewAlertDialog(String question, DialogListener dialogListener) {
-        dialogManager.viewAlertDialog(this,question,dialogListener);
-    }
-
-
-    @Override
     public void viewCommerces(Object data) {
         Bundle bundle = new Bundle();
         List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title","");
 
-        tabFragment.setArguments(bundle);
+        setArguments(tabFragment,bundle);
         addFragment(tabFragment);
-    }
-
-    @Override
-    public void closeView() {
-        confirmClose("Esta seguro que desea salir?",closeApp);
-    }
-
-    @Override
-    public void back() { getFragmentManager().popBackStack(); }
-
-    @Override
-    public void logout() {
-        confirmClose("Esta seguro que desea cerrar la sesión",closeSession);
-    }
-
-    @Override
-    public void viewPrice() {
-        priceFragment.setQuery(query);
-        addFragment(priceFragment);
     }
 
 
@@ -347,13 +349,34 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
                 commerces+=""+commerce.getId()+",";
             }
         }
+
         if(commerces.isEmpty()){
             commerces = "-1";
+        }else{
+            commerces = commerces.substring(0,commerces.length()-1);
         }
         client.setCommerces(commerces);
         client.sendRequest();
     }
 
+    @Override
+    public void viewAlertDialog(String question, DialogListener dialogListener) {
+        dialogManager.viewAlertDialog(this,question,dialogListener);
+    }
+
+
+    @Override
+    public void closeView() {
+        confirmClose("Esta seguro que desea salir?",closeApp);
+    }
+
+    @Override
+    public void back() { getSupportFragmentManager().popBackStack(); }
+
+    @Override
+    public void logout() {
+        confirmClose("Esta seguro que desea cerrar la sesión",closeSession);
+    }
 
     // agrega el fragmento indicado a la vista.
     private void addFragment(Fragment fragment) {
@@ -361,7 +384,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 //                .addToBackStack(null).commit();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
-
     }
 
     @Override
@@ -370,7 +392,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
             confirmClose("Esta seguro que desea salir?", closeApp);
             if(tabFragment.isVisible()){
                 saveFavourites();
-                back();
             }
 
         }
@@ -384,4 +405,12 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         }
     }
 
+    public void setArguments(Fragment fragment, Bundle bundle){
+        if(fragment.getArguments() != null){
+            fragment.getArguments().clear();
+            fragment.getArguments().putAll(bundle);
+        }else{
+            fragment.setArguments(bundle);
+        }
+    }
 }

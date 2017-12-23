@@ -6,5 +6,5 @@ package unpsjb.wikiprecios.http;
  */
 public interface HttpResponseHandler {
     void onSuccess(Object data);
-    // TODO agregar sendRequest(), onFailure()
+    // TODO onFailure()
 }

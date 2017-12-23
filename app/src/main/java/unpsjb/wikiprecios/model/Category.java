@@ -71,12 +71,12 @@ public class Category implements Listable,Parcelable{
 
     @Override
     public String getTitle() {
-        return initials;
+        return name;
     }
 
     @Override
     public String getSubtitle() {
-        return name;
+        return "";
     }
 
     @Override
