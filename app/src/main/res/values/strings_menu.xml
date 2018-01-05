@@ -35,7 +35,7 @@
     <string name="title_commerce">¿En que comercio se encuentra?</string>
 
     <!--Suggested Price-->
-    <string name="title_suggested_price">Ingrese el precio del producto</string>
+    <string name="title_suggested_price">Seleccione el precio del producto</string>
     <string name="title_another_price">Otro precio</string>
     <string name="title_enter_manually">Ingresar manualmente</string>
 

@@ -33,7 +33,12 @@ public class SuggestedPriceHttpClient extends HttpClient implements HttpResponse
     public void onSuccess(Object data) {
         // TODO Si existen precios sugeridos mostrarlos..
         Message.show(context,data.toString());
-        coordinator.viewPrice();
+        if(data.toString().isEmpty() || data.toString().equals("[]")){
+            coordinator.viewPrice();
+        }else{
+            coordinator.viewSuggestedPrices(data);
+        }
+
     }
 
     public void setQuery(Query query) {

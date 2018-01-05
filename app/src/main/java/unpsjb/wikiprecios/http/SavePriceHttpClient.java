@@ -36,9 +36,13 @@ public class SavePriceHttpClient extends HttpClient implements HttpResponseHandl
 
     @Override
     public void onSuccess(Object data) {
-        Message.show(context,context.getString(R.string.msg_new_product));
         Log.e("SAVEPRICE",data.toString());
-        coordinator.viewMenu();
+        if(data.toString().equals("[]")){
+            Message.show(context,context.getString(R.string.msg_new_product));
+            coordinator.viewMenu();
+        }else{
+            coordinator.viewPrices(data);
+        }
     }
 
     public void setQuery(Query query) {

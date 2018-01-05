@@ -4,6 +4,7 @@ import android.location.Location;
 
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
+import unpsjb.wikiprecios.model.Price;
 import unpsjb.wikiprecios.view.util.DialogListener;
 
 /**
@@ -29,6 +30,8 @@ public interface Coordinator {
 
     void viewPrice();
 
+
+
     void viewCommerces(Object data);
 
     void viewSpecialProducts(Object data);
@@ -38,6 +41,8 @@ public interface Coordinator {
     void findNearbyCommerces(String code);
 
     void findSuggestedPrices(Commerce commerce);
+
+    void viewSuggestedPrices(Object data);
 
     void findCategories();
 
@@ -59,7 +64,11 @@ public interface Coordinator {
 
     void savePrice();
 
+    void savePrice(Price price);
+
     void viewMap();
 
     void saveCommerce(Location location, String name);
+
+    void viewPrices(Object data);
 }

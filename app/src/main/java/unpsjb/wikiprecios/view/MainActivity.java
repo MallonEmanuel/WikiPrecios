@@ -10,14 +10,11 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.FacebookSdk;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +22,16 @@ import java.util.List;
 import unpsjb.wikiprecios.controller.parser.CategoryParser;
 import unpsjb.wikiprecios.controller.parser.CommerceParser;
 import unpsjb.wikiprecios.controller.parser.JsonParser;
+import unpsjb.wikiprecios.controller.parser.PriceParser;
 import unpsjb.wikiprecios.controller.parser.SpecialProductParser;
+import unpsjb.wikiprecios.controller.parser.SuggestedPriceParser;
 import unpsjb.wikiprecios.http.CategoryHttpClient;
 import unpsjb.wikiprecios.http.LoginHttpClient;
 import unpsjb.wikiprecios.http.RegisterHttpClient;
 import unpsjb.wikiprecios.http.SaveCommerceHttpClient;
 import unpsjb.wikiprecios.http.SaveFavouriteCommerceHttpClient;
 import unpsjb.wikiprecios.http.SavePriceHttpClient;
+import unpsjb.wikiprecios.model.Price;
 import unpsjb.wikiprecios.service.LocationService;
 import unpsjb.wikiprecios.http.CommerceHttpClient;
 import unpsjb.wikiprecios.http.NearbyCommerceHttpClient;
@@ -43,7 +43,9 @@ import unpsjb.wikiprecios.model.Query;
 import unpsjb.wikiprecios.view.listview.ListViewCategoryFragment;
 import unpsjb.wikiprecios.view.listview.ListViewFragment;
 import unpsjb.wikiprecios.view.listview.ListViewNearbyCommerceFragment;
+import unpsjb.wikiprecios.view.listview.ListViewPriceFragment;
 import unpsjb.wikiprecios.view.listview.ListViewSpecialProductFragment;
+import unpsjb.wikiprecios.view.listview.ListViewSuggestedPriceFragment;
 import unpsjb.wikiprecios.view.util.CloseApp;
 import unpsjb.wikiprecios.view.util.CloseSession;
 import unpsjb.wikiprecios.view.util.DialogListener;
@@ -52,7 +54,6 @@ import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.config.AppPreference;
 import unpsjb.wikiprecios.view.util.Message;
-import unpsjb.wikiprecios.view.util.SaveFavourite;
 
 /**
  * Esta clase se ocupa de generar todos los fragmentos y de coordinador los mensajes
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     ListViewFragment listViewNearbyCommerceFragment;
     ListViewFragment listViewCategoryFragment;
     ListViewFragment listViewSpecialProductFragment;
-
+    ListViewFragment listViewSuggestedPriceFragment;
+    ListViewFragment listViewPriceFragment;
 
     PriceFragment priceFragment;
     TabFragment tabFragment;
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         listViewNearbyCommerceFragment = new ListViewNearbyCommerceFragment();
         listViewCategoryFragment = new ListViewCategoryFragment();
         listViewSpecialProductFragment = new ListViewSpecialProductFragment();
+        listViewSuggestedPriceFragment = new ListViewSuggestedPriceFragment();
+        listViewPriceFragment = new ListViewPriceFragment();
 
         priceFragment = new PriceFragment();
         tabFragment = new TabFragment();
@@ -228,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewNearbyCommerces(Object data) {
         Bundle bundle = new Bundle();
         List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
-        Commerce addCommerce = new Commerce(-1,"Agregar comercio","Si el comercio no se encuentra en la lista, por favor agreguelo",R.drawable.ic_add);
+        Commerce addCommerce = new Commerce(-1,"Agregar comercio","Si el comercio no se encuentra en la lista, por favor agreguelo",R.drawable.ic_add2);
         list.add(addCommerce );
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_commerce).toString());
@@ -239,9 +243,25 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     @Override
     public void findSuggestedPrices(Commerce commerce) {
         query.setCommerce(commerce);
-        SuggestedPriceHttpClient finder = new SuggestedPriceHttpClient(this,context);
-        finder.setQuery(query);
-        finder.sendRequest();
+        SuggestedPriceHttpClient client = new SuggestedPriceHttpClient(this,context);
+        client.setQuery(query);
+        client.sendRequest();
+    }
+
+    @Override
+    public void viewSuggestedPrices(Object data){
+        Bundle bundle = new Bundle();
+        List<Parcelable> list = JsonParser.parseList(new SuggestedPriceParser(),data.toString());
+        for(int i = 0; i < list.size();i++){
+            ((Price)list.get(i)).setCommerce(query.getCommerce().getName());
+        }
+        Price addPrice = new Price(-1,"Ingresar manualmente","Si el precio no se encuentra en la lista, ingreselo manualmente");
+        addPrice.setCategory(R.drawable.ic_add2);
+        list.add(addPrice );
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+        bundle.putString("title",context.getText(R.string.title_suggested_price).toString());
+        setArguments(listViewSuggestedPriceFragment,bundle);
+        addFragment(listViewSuggestedPriceFragment);
     }
 
     @Override
@@ -259,6 +279,24 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         client.setQuery(query);
         client.sendRequest();
     }
+
+    @Override
+    public void savePrice(Price price){
+        query.setPrice(Double.parseDouble(price.getPrice()));
+        savePrice();
+    }
+
+    @Override
+    public void viewPrices(Object data) {
+        Bundle bundle = new Bundle();
+        List<Parcelable> list = JsonParser.parseList(new PriceParser(),data.toString());
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+        bundle.putString("title",context.getText(R.string.title_result_price).toString());
+        setArguments(listViewPriceFragment,bundle);
+        addFragment(listViewPriceFragment);
+
+    }
+
 
     @Override
     public void viewMap() {
