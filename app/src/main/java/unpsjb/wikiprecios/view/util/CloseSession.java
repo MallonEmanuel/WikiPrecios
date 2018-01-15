@@ -22,6 +22,7 @@ public class CloseSession extends Question implements DialogListener {
         // Cierra la sesion local, la de facebook y vuelve a la vista de login
         SessionManager.getInstance(context).setIsLoggedIn(false);
         LoginManager.getInstance().logOut();
+        coordinator.setUser(null);
         coordinator.viewLogin();
     }
 

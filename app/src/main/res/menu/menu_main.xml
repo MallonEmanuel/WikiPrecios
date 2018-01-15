@@ -4,22 +4,24 @@
     android:id="@+id/fragment_setting"
 
     tools:context=".view.MainActivity">
-    <item
-        android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_star"
-        android:title="Mi calificación"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_favorite2"
-        android:icon="@drawable/ic_camera"
-        android:title="Cantidad de Productos escaneados"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_settings"
-        android:background="@color/input_register_bg"
-        android:orderInCategory="100"
         android:title="@string/action_settings"
+        android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionAccumulated"
+        android:title="Aportes a wikiprecios"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/actionQualification"
+        android:title="Tu calificación"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+
 
 </menu>

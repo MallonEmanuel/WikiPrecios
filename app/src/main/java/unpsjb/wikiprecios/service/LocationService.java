@@ -102,7 +102,7 @@ public class LocationService implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Log.e(TAG,"onLocationChanged " + location.getProvider());
-        Message.show(context,location.getProvider());
+//        Message.show(context,location.getProvider());
         if(location.getProvider() == LocationManager.NETWORK_PROVIDER ){
             networkLocation = location;
         }else {

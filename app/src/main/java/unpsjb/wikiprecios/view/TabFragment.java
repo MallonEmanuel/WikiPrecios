@@ -1,5 +1,6 @@
 package unpsjb.wikiprecios.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentTabHost;
@@ -7,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.view.listview.ListViewFavouriteCommerceFragment;
@@ -46,5 +50,16 @@ public class TabFragment extends MyFragment {
                 ListViewFavouriteCommerceFragment.class, getArguments() );
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        TabHost tabhost = mTabHost;
+        for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
+        {
+            TextView tv = (TextView) tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(Color.WHITE);
+        }
+        super.onResume();
     }
 }

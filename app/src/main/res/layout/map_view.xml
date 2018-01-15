@@ -33,13 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/input_register_bg"
+        android:background="@drawable/my_text"
         android:hint="Nombre de comercio"
         android:padding="10dp"
         android:singleLine="true"
         android:inputType="textCapWords"
-        android:textColor="@color/input_register"
-        android:textColorHint="@color/input_register_hint" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/input_login_hint" />
 
     <Button
         android:id="@+id/btn_save_commerce"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
-        android:background="@color/btn_lolipop_bg"
+        android:background="@drawable/my_button"
         android:text="Guardar y continuar"
         android:textColor="@color/white" />
 
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
-        android:background="@color/btn_lolipop_bg"
+        android:background="@drawable/my_button"
         android:text="Cancelar"
         android:textColor="@color/white" />
 

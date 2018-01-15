@@ -23,23 +23,23 @@
             android:gravity="center"
             android:id="@+id/title_menu" />
 
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
-            android:text="TEST"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_test"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginTop="40dip"-->
+            <!--android:background="@drawable/my_button"-->
+            <!--android:text="TEST"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="15dp" />-->
 
         <Button
             android:id="@+id/btn_camera_menu"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@drawable/my_button"
             android:text="@string/btn_camera"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@drawable/my_button"
             android:text="@string/btn_special_product"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -61,7 +61,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@drawable/my_button"
             android:text="@string/btn_favourite"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -72,7 +72,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@drawable/my_button"
             android:text="@string/btn_logout"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -83,7 +83,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_lolipop_bg"
+            android:background="@drawable/my_button"
             android:text="@string/btn_exit"
             android:textAllCaps="false"
             android:textColor="@color/white"

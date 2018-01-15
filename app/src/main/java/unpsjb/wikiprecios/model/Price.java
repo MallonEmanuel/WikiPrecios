@@ -16,6 +16,7 @@ public class Price implements Parcelable, Listable {
     private String price;
     private String commerce;
     private String distance;
+    private String address;
 
     private int category;
     private boolean favourite;
@@ -33,14 +34,21 @@ public class Price implements Parcelable, Listable {
         this.favourite = false;
     }
 
+    public Price(int category, String commerce, String price, int id) {
+        this.category = category;
+        this.commerce = commerce;
+        this.price = price;
+        this.id = id;
+    }
 
-    public Price(int id, String price, String commerce, String distance) {
+    public Price(int id, String price, String commerce, String distance, String address, boolean favourite) {
         this.id = id;
         this.price = price;
         this.commerce = commerce;
         this.distance = distance;
         this.category = R.drawable.ic_price2;
-        this.favourite = false;
+        this.favourite = favourite;
+        this.address = address;
     }
 
     public int getId() {
@@ -95,9 +103,14 @@ public class Price implements Parcelable, Listable {
     @Override
     public String getSubtitle() {
         String s = commerce;
-        if(!distance.isEmpty()){
-            s+= " ("+ distance +" km)";
+
+        if(address != null && !address.isEmpty()){
+            s+= " - "+ address ;
         }
+        if(distance != null && !distance.isEmpty()){
+            s+= "\n ("+ distance +" km)";
+        }
+
         return s;
     }
 
@@ -120,6 +133,7 @@ public class Price implements Parcelable, Listable {
         dest.writeString(this.price);
         dest.writeString(this.commerce);
         dest.writeString(this.distance);
+        dest.writeString(this.address);
         dest.writeInt(this.category);
         dest.writeByte(favourite ? (byte) 1 : (byte) 0);
     }
@@ -129,6 +143,7 @@ public class Price implements Parcelable, Listable {
         this.price = in.readString();
         this.commerce = in.readString();
         this.distance = in.readString();
+        this.address = in.readString();
         this.category = in.readInt();
         this.favourite = in.readByte() != 0;
     }
@@ -142,4 +157,12 @@ public class Price implements Parcelable, Listable {
             return new Price[size];
         }
     };
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

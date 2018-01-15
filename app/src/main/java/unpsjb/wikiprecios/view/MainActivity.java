@@ -3,6 +3,9 @@ package unpsjb.wikiprecios.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -11,8 +14,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
@@ -26,12 +32,14 @@ import unpsjb.wikiprecios.controller.parser.PriceParser;
 import unpsjb.wikiprecios.controller.parser.SpecialProductParser;
 import unpsjb.wikiprecios.controller.parser.SuggestedPriceParser;
 import unpsjb.wikiprecios.http.CategoryHttpClient;
+import unpsjb.wikiprecios.http.LoginFacebookHttpClient;
 import unpsjb.wikiprecios.http.LoginHttpClient;
 import unpsjb.wikiprecios.http.RegisterHttpClient;
 import unpsjb.wikiprecios.http.SaveCommerceHttpClient;
 import unpsjb.wikiprecios.http.SaveFavouriteCommerceHttpClient;
 import unpsjb.wikiprecios.http.SavePriceHttpClient;
 import unpsjb.wikiprecios.model.Price;
+import unpsjb.wikiprecios.model.User;
 import unpsjb.wikiprecios.service.LocationService;
 import unpsjb.wikiprecios.http.CommerceHttpClient;
 import unpsjb.wikiprecios.http.NearbyCommerceHttpClient;
@@ -83,8 +91,12 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     CloseSession closeSession; // Se ocupa de cerrar la cesion
     LocationService locationService;
     ProgressDialog pDialog;
+    Toolbar toolbar;
 
+    MenuItem menuItemQualification;
+    MenuItem menuItemAccumulated;
     private Query query;
+    private User user;
 
 
     @Override
@@ -96,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         // Se inicializa el API de facebook
         FacebookSdk.sdkInitialize(context);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Declaracion de fragmentos
@@ -129,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
         // Si existe un usuario logeado y preferio dejar la sesion iniciada, vamos al menu
         if (sessionManager.isLoggedIn() && AppPreference.isPrefSessionLoged(context)) {
+            String mail = SessionManager.getInstance(context).getUserLoged();
+            String password = SessionManager.getInstance(context).getUserPassword();
+            checkLogin(mail,password,true);
             addFragment(menuFragment);
         }else {
             // En otro caso vamos a la vista de login
@@ -139,10 +154,11 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
 
     @Override
-    public void checkLogin(String mail, String password) {
+    public void checkLogin(String mail, String password,boolean background) {
         LoginHttpClient client = new LoginHttpClient(this,context);
         client.setEmail(mail);
         client.setPassword(password);
+        client.setBackground(background);
         client.sendRequest();
     }
 
@@ -182,7 +198,58 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        menuItemAccumulated = menu.findItem(R.id.actionAccumulated);
+        //View view = buildView(R.layout.counter_menuitem_accumulated_layout);
+        menuItemAccumulated.setIcon(buildCounterDrawable(0,  R.drawable.ic_camera,R.id.count_accumulated,R.layout.counter_menuitem_accumulated_layout));
+
+        menuItemQualification = menu.findItem(R.id.actionQualification);
+        //View view2 = buildView(R.layout.counter_menuitem_qualification_layout);
+        menuItemQualification.setIcon(buildCounterDrawable(0,  R.drawable.ic_star3,R.id.count_qualification,R.layout.counter_menuitem_qualification_layout));
+
+        if(user == null){
+            menuItemAccumulated.setVisible(false);
+            menuItemQualification.setVisible(false);
+        }else{
+            setAccumulatedIcon(user.getAccumulated());
+            setQualificationIcon(user.getQualification());
+        }
+
         return true;
+    }
+
+    private void setAccumulatedIcon(int count){
+        menuItemAccumulated.setIcon(buildCounterDrawable(count,  R.drawable.ic_camera,R.id.count_accumulated,R.layout.counter_menuitem_accumulated_layout));
+    }
+
+    private void setQualificationIcon(int count){
+        menuItemQualification.setIcon(buildCounterDrawable(count,  R.drawable.ic_star3,R.id.count_qualification,R.layout.counter_menuitem_qualification_layout));
+    }
+
+    private View buildView(int layout){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        return inflater.inflate(layout, null);
+    }
+
+    private Drawable buildCounterDrawable(int count, int backgroundImageId, int i,int layoutId) {
+
+        View view = buildView(layoutId);
+        view.setBackgroundResource(backgroundImageId);
+
+        TextView textView = (TextView) view.findViewById(i);
+        textView.setText("" + count);
+
+
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+        view.setDrawingCacheEnabled(true);
+        view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+
+        return new BitmapDrawable(getResources(), bitmap);
     }
 
     @Override
@@ -232,8 +299,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewNearbyCommerces(Object data) {
         Bundle bundle = new Bundle();
         List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
-        Commerce addCommerce = new Commerce(-1,"Agregar comercio","Si el comercio no se encuentra en la lista, por favor agreguelo",R.drawable.ic_add2);
-        list.add(addCommerce );
+//        Commerce addCommerce = new Commerce(-1,"Agregar comercio","Si el comercio no se encuentra en la lista, por favor agreguelo",R.drawable.ic_add2);
+//        list.add(addCommerce );
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_commerce).toString());
         setArguments(listViewNearbyCommerceFragment,bundle);
@@ -290,11 +357,39 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewPrices(Object data) {
         Bundle bundle = new Bundle();
         List<Parcelable> list = JsonParser.parseList(new PriceParser(),data.toString());
+        Price price = new Price(R.drawable.ic_exit,"Volver al menu principal","Salir",-1);
+        list.add(price);
+
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title",context.getText(R.string.title_result_price).toString());
         setArguments(listViewPriceFragment,bundle);
         addFragment(listViewPriceFragment);
 
+    }
+
+    @Override
+    public void login_facebook(String id, String name, String surname, String email) {
+        LoginFacebookHttpClient client= new LoginFacebookHttpClient(this,context);
+        client.setEmail(email);
+        client.setName(name);
+        client.setSurname(surname);
+        client.setFacebookId(id);
+        client.sendRequest();
+
+    }
+
+    @Override
+    public void setUser(User user) {
+        this.user = user;
+        if(user != null){
+        setAccumulatedIcon(user.getAccumulated());
+        setQualificationIcon(user.getQualification());
+        menuItemQualification.setVisible(true);
+        menuItemAccumulated.setVisible(true);
+        }else {
+            menuItemQualification.setVisible(false);
+            menuItemAccumulated.setVisible(false);
+        }
     }
 
 
@@ -313,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         SaveCommerceHttpClient client = new SaveCommerceHttpClient(this,context);
         client.setName(name);
         client.setLocation(location);
+        client.setInProcess(true);
         client.sendRequest();
     }
 
@@ -369,7 +465,6 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         List<Parcelable> list = JsonParser.parseList(new CommerceParser(),data.toString());
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         bundle.putString("title","");
-
         setArguments(tabFragment,bundle);
         addFragment(tabFragment);
     }
@@ -431,7 +526,10 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
             if(tabFragment.isVisible()){
                 saveFavourites();
             }
-
+            if(listViewPriceFragment.isVisible()){
+                viewMenu();
+                return false;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

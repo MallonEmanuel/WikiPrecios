@@ -11,8 +11,6 @@ public class Routes {
 //      {"id":"14","name":"emanuel","surname":"Mallon","mail":"ema3@gmail.com","password":"af87d9ecd674dc032707d7166ef4439f2d50b194e3435ac6c6975e9754dd6357c5e562310ef7f698f0080f67d14e37a57261ea7aa9dd534d9f7612445c74c150hGDue6E0SHfikV3ZIwN8NFQDh3aaPaksnNEhissnl4U=","qualification":"1","accumulated":"0","active_account":"1"}
         public static String URL_LOGIN = "/wikiprecios/api/usuario/login";
 
-        public static String URL_FACEBOOK_LOGIN = "/wikiprecios/api/usuario/login_facebook";
-
 //      http://localhost/wikiprecios/api/usuario/registrar/?password=%22ema%22&mail=%22ema@gmail.com%22&name=%22emanuel%22&surname=%22Mallon%22
 //      {"mensaje":"El mail ingresado ya fue utilizado en otra cuenta","registrado":false}
 //      {"registrado":true,"mensaje":"Registrado con exito"}

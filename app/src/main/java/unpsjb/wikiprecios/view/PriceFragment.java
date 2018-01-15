@@ -95,4 +95,9 @@ public class PriceFragment extends MyFragment{
         return p;
     }
 
+    @Override
+    public void onResume() {
+        inputPrice.setText("");
+        super.onResume();
+    }
 }

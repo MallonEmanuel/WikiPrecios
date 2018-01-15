@@ -24,12 +24,17 @@ public class CommerceParser implements Parselable {
         String city = object.getString("city");
         String province = object.getString("province");
         String country = object.getString("country");
-        Double distance = object.getDouble("distance");
 
+        Double distance = 0.0;
+        if(object.has("distance")){
+          distance = object.getDouble("distance");
+        }
 
+        boolean f = false;
+        if(object.has("favorite")){
         int favourite = object.getInt("favorite");
-        boolean f;
         if(favourite == 1)f = true; else f = false;
+        }
 
         return new Commerce(id,name,address,latitude,longitude,city,province,country,distance,f);
     }

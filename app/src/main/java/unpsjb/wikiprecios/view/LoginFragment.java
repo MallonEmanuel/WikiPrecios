@@ -77,17 +77,23 @@ public class LoginFragment  extends MyFragment{
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        coordinator.viewMenu();
+                        coordinator.showDialog("Recuperando información de usuario");
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
+                                        coordinator.viewMenu();
+                                        coordinator.hideDialog();
                                         Log.e(TAG, response.toString());
                                         try {
                                             String email = response.getJSONObject().getString("email");
                                             String password = response.getJSONObject().getString("id");
+                                            String first_name = response.getJSONObject().getString("first_name");
+                                            String last_name = response.getJSONObject().getString("last_name");
+                                            Log.e("FACEBOOK",email +"  "+password + " "+first_name+" "+ last_name);
                                             session.setLogin(true, email,password);
+                                            coordinator.login_facebook(password,first_name,last_name,email);
                                         }catch(Exception e){
                                             e.printStackTrace();
                                         }
@@ -97,16 +103,17 @@ public class LoginFragment  extends MyFragment{
                         parameters.putString("fields", "id,email,first_name,last_name");
                         request.setParameters(parameters);
                         request.executeAsync();
+
                     }
 
                     @Override
                     public void onCancel() {
-                        Message.show(context,"LoginFacebook.callback.onCancel");
+                        //Message.show(context,"Login cancelad");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        Message.show(context,"LoginFacebook.callback.exception");
+                        Message.show(context,"Error al iniciar sesion");
                     }
                 });// Fin Facebook callback
 
@@ -123,7 +130,7 @@ public class LoginFragment  extends MyFragment{
                     Message.show(context,context.getString(R.string.msg_logging_enter_credential));
                 } else {
                     // login user
-                    coordinator.checkLogin(mail, password);
+                    coordinator.checkLogin(mail, password,false);
                 }
             }
         });
@@ -147,6 +154,7 @@ public class LoginFragment  extends MyFragment{
     @Override
     public void onResume(){
         super.onResume();
+        inputEmail.setText("");
         inputPassword.setText("");
     }
 

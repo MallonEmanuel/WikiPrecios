@@ -4,11 +4,12 @@ import android.content.Context;
 
 import unpsjb.wikiprecios.config.Routes;
 import unpsjb.wikiprecios.view.Coordinator;
+import unpsjb.wikiprecios.view.util.Message;
 
 /**
  * Created by emanuel on 05/10/17.
  */
-public class CategoryHttpClient extends HttpClient implements HttpResponseHandler {
+public class CategoryHttpClient extends HttpClient {
 
     public CategoryHttpClient(Coordinator coordinator, Context context) {
         super(coordinator,context);
@@ -29,4 +30,5 @@ public class CategoryHttpClient extends HttpClient implements HttpResponseHandle
         coordinator.hideDialog();
         coordinator.viewCategories(categories);
     }
+
 }

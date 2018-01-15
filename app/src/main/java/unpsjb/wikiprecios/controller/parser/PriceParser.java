@@ -19,6 +19,8 @@ public class PriceParser implements Parselable {
         String price = object.getString("price");
         String name = object.getString("name");
         String distance = object.getString("distance");
-        return new Price(id,price,name,distance);
+        String address = object.getString("address");
+        boolean favourite = object.getBoolean("favorite");
+        return new Price(id,price,name,distance,address,favourite);
     }
 }

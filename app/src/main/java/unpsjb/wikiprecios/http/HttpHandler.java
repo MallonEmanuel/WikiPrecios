@@ -7,9 +7,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.conn.ConnectTimeoutException;
 
 /**
  * Controlador de consultas Http, se ocupa de realizar las consultas al servidor, pasa los parametros,
@@ -39,6 +43,9 @@ public class HttpHandler extends JsonHttpResponseHandler {
         Log.e("HttpHandler","sending request");
         try {
             AsyncHttpClient client = new AsyncHttpClient();
+            client.setConnectTimeout(10);
+            client.setTimeout(10);
+            client.setResponseTimeout(10);
             if(requestMode == GET_REQUEST){
                 client.get(baseUrl, requestParams, this);
                 Log.e("HttpHandler", "sending request GET");
@@ -64,25 +71,46 @@ public class HttpHandler extends JsonHttpResponseHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-             listener.onSuccess(response);
+        try {
+            listener.onSuccess(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-        super.onFailure(statusCode, headers, throwable, errorResponse);
         Log.e("HttpHandler onFailure", "");
+        super.onFailure(statusCode, headers, throwable, errorResponse);
     }
 
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        try {
             listener.onSuccess(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+        Log.e("HttpHandler Failure", responseString);
+        super.onFailure(statusCode, headers, responseString, throwable);
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        super.onFailure(statusCode, headers, throwable, errorResponse);
-        Log.e("HttpHandler Failure", "");
-        sendRequest();
+        Log.e("HttpHandler Failure", statusCode +" "+throwable.toString());
+        if(throwable instanceof ConnectTimeoutException || throwable instanceof ConnectException){
+            listener.onFailure();
+        }else {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            sendRequest();
+        }
     }
+
+
+
 }

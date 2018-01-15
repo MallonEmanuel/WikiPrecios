@@ -5,6 +5,7 @@ import android.location.Location;
 import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.model.Price;
+import unpsjb.wikiprecios.model.User;
 import unpsjb.wikiprecios.view.util.DialogListener;
 
 /**
@@ -58,7 +59,7 @@ public interface Coordinator {
 
     void showDialog(String string);
 
-    void checkLogin(String mail, String password);
+    void checkLogin(String mail, String password,boolean background);
 
     void registerUser(String surname, String name, String email, String password);
 
@@ -71,4 +72,8 @@ public interface Coordinator {
     void saveCommerce(Location location, String name);
 
     void viewPrices(Object data);
+
+    void login_facebook(String id, String name, String surname, String email);
+
+    void setUser(User user);
 }

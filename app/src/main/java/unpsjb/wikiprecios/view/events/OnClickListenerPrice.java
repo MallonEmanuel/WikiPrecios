@@ -21,6 +21,9 @@ public class OnClickListenerPrice implements AdapterView.OnItemClickListener,Ser
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //Price price = (Price) adapterView.getAdapter().getItem(i);
+        Price price = (Price) adapterView.getAdapter().getItem(i);
+        if(price.getId() == -1){
+            coordinator.viewMenu();
+        }
     }
 }

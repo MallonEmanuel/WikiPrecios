@@ -26,6 +26,7 @@ public class CloseApp extends Question implements DialogListener {
             LoginManager.getInstance().logOut();
         }
         // Finaliza la app
+        coordinator.setUser(null);
         coordinator.finish();
     }
 

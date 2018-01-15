@@ -20,7 +20,7 @@ public class SaveFavouriteCommerceHttpClient extends HttpClient implements HttpR
 
     @Override
     public void sendRequest() {
-        HttpHandler http = new HttpHandler(base_url + Routes.ULR_SAVE_FAVOURITES_COMMERCES, HttpHandler.GET_REQUEST);
+        HttpHandler http = new HttpHandler(base_url + Routes.ULR_SAVE_FAVOURITES_COMMERCES, HttpHandler.POST_REQUEST);
         http.addParams("commerce", commerces);
         http.addParams("user", email);
         http.setListener(this);

@@ -31,7 +31,7 @@ public class RegisterHttpClient extends HttpClient implements HttpResponseHandle
 
         String base_url = AppPreference.getPrefBaseUrl(context);
 
-        HttpHandler http = new HttpHandler(base_url + Routes.URL_REGISTER, HttpHandler.GET_REQUEST);
+        HttpHandler http = new HttpHandler(base_url + Routes.URL_REGISTER, HttpHandler.POST_REQUEST);
         http.addParams("name", name);
         http.addParams("surname",surname);
         http.addParams("mail",email);
