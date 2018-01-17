@@ -10,10 +10,8 @@ import android.view.SurfaceView;
 import java.io.IOException;
 
 /**
- * Created by emanuel on 23/09/17.
- * Clase auxiliar que se ayuda a controlar la camara
+ * Clase auxiliar que ayuda a controlar el scaner de codigos de barras
  */
-
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;

@@ -9,7 +9,8 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de recuperar los precios sugeridos, cargados por otros usuarios, en el
+ * mismo comercio.
  */
 public class SuggestedPriceHttpClient extends HttpClient implements HttpResponseHandler {
 

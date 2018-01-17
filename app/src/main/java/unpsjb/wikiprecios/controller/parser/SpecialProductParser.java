@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import unpsjb.wikiprecios.model.SpecialProduct;
 
 /**
- * Created by emanuel on 02/10/17.
+ * Se encarga de parsear un Producto Especial de JSONObject a Entidad.
  */
 public class SpecialProductParser implements Parselable {
 

@@ -20,7 +20,6 @@ import unpsjb.wikiprecios.model.Query;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 29/09/17.
  * Este fragmento permite al usuario ingresar manualmente el precio del producto,
  * este fragmento se mostrara si el producto no existe en el sistema, o cuando
  * el usuario quiera introducir el precio manualmente.

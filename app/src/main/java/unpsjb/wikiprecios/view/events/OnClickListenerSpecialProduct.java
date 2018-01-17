@@ -9,7 +9,7 @@ import unpsjb.wikiprecios.model.SpecialProduct;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de manejar los eventos que surgen en la lista de Productos especiales
  */
 public class OnClickListenerSpecialProduct implements AdapterView.OnItemClickListener,Serializable {
     private Coordinator coordinator;

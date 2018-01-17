@@ -13,7 +13,6 @@ import unpsjb.wikiprecios.view.util.Message;
 
 
 /**
- * Created by emanuel on 20/09/17.
  * Este fragmento permite al usuario registrarce en el sistema.
  */
 public class RegisterFragment extends MyFragment {

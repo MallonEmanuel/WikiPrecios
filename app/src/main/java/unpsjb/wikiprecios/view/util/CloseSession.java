@@ -8,7 +8,6 @@ import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 21/09/17.
  * Esta clase permite cerrar la cesión
  */
 public class CloseSession extends Question implements DialogListener {

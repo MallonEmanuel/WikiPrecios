@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import unpsjb.wikiprecios.R;
 
 /**
- * Created by Ema on 06/10/2015.
  * Esta clase representa al Precio de un producto
  * Implementa parceable para poder ser compartido entre activies
  */

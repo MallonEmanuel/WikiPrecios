@@ -10,7 +10,7 @@ import unpsjb.wikiprecios.view.events.OnClickListenerPrice;
 
 
 /**
- * Created by emanuel on 05/01/18.
+ * Esta clase permite ver la lista de precios resultados.
  */
 public class ListViewPriceFragment extends ListViewFragment {
 

@@ -7,7 +7,9 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase abstrapta le brinda la funcionalidad a quien la herede de realizar peticiones HTTP
+ * Tambien implementa HttpResponseHandler para ejecutar acciones al momento de error o exito
+ * de la consulta.
  */
 public abstract class HttpClient implements HttpResponseHandler{
 

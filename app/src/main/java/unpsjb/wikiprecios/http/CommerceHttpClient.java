@@ -9,7 +9,7 @@ import unpsjb.wikiprecios.service.LocationService;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de realizar las consultas, que busca los comercios pertenecientes a un usuario.
  */
 public class CommerceHttpClient extends HttpClient implements HttpResponseHandler {
 

@@ -12,7 +12,7 @@ import unpsjb.wikiprecios.config.Routes;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 18/10/17.
+ * Esta clase permite registrar un usuario en wikiprecios.
  */
 public class RegisterHttpClient extends HttpClient implements HttpResponseHandler  {
 
@@ -26,6 +26,10 @@ public class RegisterHttpClient extends HttpClient implements HttpResponseHandle
         super(coordinator, context);
     }
 
+    /**
+     * Al completar el formulario de regisro, con el nombre, apellido, mail y password del usuario,
+     * este puede ser registrado.
+     */
     @Override
     public void sendRequest() {
 

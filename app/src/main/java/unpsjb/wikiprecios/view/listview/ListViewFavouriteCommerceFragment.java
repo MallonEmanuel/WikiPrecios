@@ -11,7 +11,7 @@ import unpsjb.wikiprecios.view.events.OnItemLongClickListenerCommerce;
 import unpsjb.wikiprecios.view.events.OnItemLongClickListenerFavouriteCommerce;
 
 /**
- * Created by emanuel on 06/10/17.
+ * Esta clase permite ver la lista de comercios favoritos.
  */
 public class ListViewFavouriteCommerceFragment extends ListViewFragment {
 

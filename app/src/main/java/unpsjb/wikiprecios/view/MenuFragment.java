@@ -9,8 +9,7 @@ import android.widget.Button;
 import unpsjb.wikiprecios.R;
 
 /**
- * Created by emanuel on 20/09/17.
- * Este fragmento presenta un menu simple al usuario
+ * Este fragmento presenta un menu simple al usuario y las acciones a tomar por cada boton.
  */
 public class MenuFragment extends MyFragment {
 

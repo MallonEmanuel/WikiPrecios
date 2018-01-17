@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.model.Price;
 import unpsjb.wikiprecios.model.User;
 
 /**
- * Created by emanuel on 12/01/18.
+ * Se encarga de parsear un usuario de JSONObject a Entidad.
  */
 public class UserParser implements Parselable {
 

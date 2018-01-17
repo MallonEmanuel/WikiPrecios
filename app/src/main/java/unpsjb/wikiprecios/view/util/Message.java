@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by emanuel on 04/10/17.
+ * Esta clase permite mostrar un Toast "Mensaje", al usuario
  */
 public class Message {
 

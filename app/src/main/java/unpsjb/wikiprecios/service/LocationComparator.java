@@ -3,7 +3,6 @@ package unpsjb.wikiprecios.service;
 import android.location.Location;
 
 /**
- * Created by emanuel on 29/09/17.
  * Permite determinar la la mejor localización obtenida de 2 localizaciones tomadas
  */
 public class LocationComparator {

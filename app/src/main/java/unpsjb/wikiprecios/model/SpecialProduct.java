@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import unpsjb.wikiprecios.R;
 
 /**
- * Created by emanuel on 02/10/17.
+ * Esta clase permite guardar la informacion de un producto especial.
  */
 public class SpecialProduct implements Listable,Parcelable {
     private static final String TAG = SpecialProduct.class.getSimpleName();

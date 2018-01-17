@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.model.Category;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de consultar los productos especiales de una categoria.
  */
 public class SpecialProductHttpClient extends HttpClient implements HttpResponseHandler {
 

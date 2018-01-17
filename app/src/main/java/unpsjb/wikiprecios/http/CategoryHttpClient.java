@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de obtener las categorias de wikiprecios.
  */
 public class CategoryHttpClient extends HttpClient {
 

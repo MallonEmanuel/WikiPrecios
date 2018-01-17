@@ -10,7 +10,6 @@ import android.util.Log;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by ema on 16/09/2015.
  * Esta clase permite obtener la ubicacion del usuario al momento de realizar la
  * consulta de un precio de un producto.
  * Esta clase obtiene la localizacion del usuario, pero se encuentra en estado de

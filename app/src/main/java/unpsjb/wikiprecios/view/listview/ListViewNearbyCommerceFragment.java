@@ -10,7 +10,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.events.OnClickListenerNearbyCommerce;
 
 /**
- * Created by emanuel on 06/10/17.
+ * Esta clase permite ver la lista de comercios cercanos.
  */
 public class ListViewNearbyCommerceFragment extends ListViewFragment {
 

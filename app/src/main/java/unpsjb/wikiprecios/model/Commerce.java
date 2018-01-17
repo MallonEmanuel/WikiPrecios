@@ -6,8 +6,7 @@ import android.os.Parcelable;
 import unpsjb.wikiprecios.R;
 
 /**
- * Created by emanuel on 29/09/17.
- * Esta clase permite recibir la información de los distintos comercios.
+ * Esta clase permite recibir la información un comercio.
  */
 public class Commerce implements Listable, Parcelable {
     private static final String TAG = Commerce.class.getSimpleName();

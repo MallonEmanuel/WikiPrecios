@@ -10,7 +10,7 @@ import unpsjb.wikiprecios.view.events.OnClickListenerNearbyCommerce;
 import unpsjb.wikiprecios.view.events.OnClickListenerSuggestedPrice;
 
 /**
- * Created by emanuel on 23/12/17.
+ * Esta clase permite ver la lista de precios sugeridos.
  */
 public class ListViewSuggestedPriceFragment extends ListViewFragment {
 

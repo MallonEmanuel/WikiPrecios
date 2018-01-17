@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 /**
- * Created by emanuel on 20/09/17.
  * Permite realizar una consulta al usuario, con dos posibles resultados.
  */
 public class DialogManager {

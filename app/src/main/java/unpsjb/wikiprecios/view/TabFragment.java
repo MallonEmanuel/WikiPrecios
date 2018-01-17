@@ -18,7 +18,6 @@ import unpsjb.wikiprecios.view.listview.ListViewCommerceFragment;
 
 
 /**
- * Created by emanuel on 02/10/17.
  * Este fragmento permite mostrar los comercios y seleccionar los preferibles por el usuario.
  */
 public class TabFragment extends MyFragment {

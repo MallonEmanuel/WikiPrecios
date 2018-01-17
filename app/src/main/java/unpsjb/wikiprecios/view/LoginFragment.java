@@ -25,7 +25,6 @@ import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 20/09/17.
  * Este fragmento permite al usuario logearce en el sistema.
  */
 public class LoginFragment  extends MyFragment{

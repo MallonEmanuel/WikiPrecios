@@ -17,7 +17,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 01/11/17.
+ * Esta clase permite guardar un nuevo comercio.
  */
 public class SaveCommerceHttpClient extends HttpClient implements HttpResponseHandler {
 

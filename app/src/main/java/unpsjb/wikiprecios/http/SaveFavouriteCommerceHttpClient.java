@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 17/10/17.
+ * Esta clase permite guardar los comercios favoritos de un usuario.
  */
 public class SaveFavouriteCommerceHttpClient extends HttpClient implements HttpResponseHandler {
 

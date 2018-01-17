@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.R;
 import unpsjb.wikiprecios.model.Category;
 
 /**
- * Created by emanuel on 02/10/17.
+ * Se encarga de parsear una Categoria de JSONObject a Entidad.
  */
 public class CategoryParser implements Parselable {
 

@@ -1,12 +1,11 @@
 package unpsjb.wikiprecios.controller;
 
 /**
- * Created by Ema on 27/10/2015.
- * Permite mantener la sesion de un usuario, mantiene sus datos basicos para logearce
+ * Permite mantener la sesion de un usuario, mantiene sus datos basicos para logearce.
  * Al iniciar la sesion con un usuario, este se guarda en el Sesion Manager, y
  * determina isLoggedIn en true, para luego consultar si existe algun usuario logeado
  * y la prefencia de mantener sesion esta es verdadera, se inicia la sesion automaticamente.
- * Al cerrar la sesion o la app tambien se debe verificar estos valores.
+ * Al cerrar la sesion o la app, tambien se debe verificar estos valores.
  */
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,6 +46,12 @@ public class SessionManager {
         editor = pref.edit();
     }
 
+    /**
+     * Setea el usuario logeado
+     * @param isLoggedIn true si se acaba de logear un usuario
+     * @param userLoged el usuario logeado
+     * @param userPassword el password del usuario
+     */
     public void setLogin(boolean isLoggedIn,String userLoged,String userPassword) {
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
         editor.putString(KEY_USER_LOGGED, userLoged);

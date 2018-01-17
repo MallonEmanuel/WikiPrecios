@@ -3,7 +3,7 @@ package unpsjb.wikiprecios.view.events;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 13/10/17.
+ * Esta clase se encarga de manejar los eventos que surgen en la lista de Comercios Favoritos
  */
 public class OnItemLongClickListenerFavouriteCommerce extends OnItemLongClickListenerCommerce {
 

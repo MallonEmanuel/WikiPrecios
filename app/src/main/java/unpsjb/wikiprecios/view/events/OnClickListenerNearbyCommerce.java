@@ -7,7 +7,7 @@ import unpsjb.wikiprecios.model.Commerce;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase se encarga de manejar los eventos que surgen en la lista de comercios favoritos.
  */
 public class OnClickListenerNearbyCommerce implements AdapterView.OnItemClickListener {
 

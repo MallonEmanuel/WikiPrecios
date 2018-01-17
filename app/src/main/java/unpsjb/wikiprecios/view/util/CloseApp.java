@@ -9,7 +9,6 @@ import unpsjb.wikiprecios.controller.SessionManager;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 21/09/17.
  * Esta clase permite cerrar la aplicación, manteniendo un estado logico de esta.
  */
 public class CloseApp extends Question implements DialogListener {

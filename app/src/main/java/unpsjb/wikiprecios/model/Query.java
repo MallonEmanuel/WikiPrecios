@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by emanuel on 29/09/17.
  * Esta clase permite guardar la información pertinente para realizar la consulta del
  * precio de un producto.
  */

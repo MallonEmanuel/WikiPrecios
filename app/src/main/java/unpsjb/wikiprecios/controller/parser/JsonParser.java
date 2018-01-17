@@ -10,11 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by emanuel on 29/09/17.
- * permite pasrsear una lista de objetos Json
+ * Permite parsear una lista de objetos Json, siempre y cuando los objetos sean de la misma entidad
  */
 public class JsonParser {
 
+    /**
+     * Este metodo se encarga de parsear la lista de objetos, que vienen en un json a entidades, para poder ser
+     * utilizadas por la aplicación.
+     * @param p Clase encargada de parsear un JsonObject a la vez
+     * @param data El JsonArray recibido en forma de String
+     * @return la lista de entidades parseadas
+     */
     public static List<Parcelable> parseList(Parselable p , String data ){
         List<Parcelable> list = new ArrayList<Parcelable>();
         try {

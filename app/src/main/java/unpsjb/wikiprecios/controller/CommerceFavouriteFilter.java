@@ -10,7 +10,7 @@ import java.util.List;
 import unpsjb.wikiprecios.model.Commerce;
 
 /**
- * Created by emanuel on 13/10/17.
+ * Esta clase se encarga de filtrar los comercios favoritos de una lista de comercios.
  */
 public class CommerceFavouriteFilter implements Filter {
 

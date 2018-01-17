@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import unpsjb.wikiprecios.model.Commerce;
 
 /**
- * Created by emanuel on 29/09/17.
+ * Se encarga de parsear un comercio de JSONObject a Entidad.
  */
 public class CommerceParser implements Parselable {
 

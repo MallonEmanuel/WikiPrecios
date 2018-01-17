@@ -5,7 +5,7 @@ import android.content.Context;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/10/17.
+ * Esta clase Realiza preguntas al usuario.
  */
 public class Question {
 

@@ -18,7 +18,10 @@ import unpsjb.wikiprecios.model.Listable;
 import unpsjb.wikiprecios.view.MyFragment;
 import unpsjb.wikiprecios.view.util.ListViewController;
 
-
+/**
+ * Esta clase permite mostrar en pantalla una lista de Listable. Listable es una interface, que
+ * solicita a las clases que la implementen algunos parametos para ser mostrados.
+ */
 public class ListViewFragment extends MyFragment {
 
     String title = "title";

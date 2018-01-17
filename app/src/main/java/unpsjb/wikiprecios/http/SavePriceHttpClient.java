@@ -17,7 +17,8 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 19/10/17.
+ * Esta clase permite guardar un precio. Al registrar el precio, el servidor retorna la lista de precios
+ * en los demas comercios.
  */
 public class SavePriceHttpClient extends HttpClient implements HttpResponseHandler  {
 

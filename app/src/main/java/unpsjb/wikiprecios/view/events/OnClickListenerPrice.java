@@ -9,7 +9,7 @@ import unpsjb.wikiprecios.model.Price;
 import unpsjb.wikiprecios.view.Coordinator;
 
 /**
- * Created by emanuel on 05/01/18.
+ * Esta clase se encarga de manejar los eventos que surgen en la lista de Precios
  */
 public class OnClickListenerPrice implements AdapterView.OnItemClickListener,Serializable {
     private Coordinator coordinator;

@@ -22,8 +22,7 @@ import unpsjb.wikiprecios.controller.CameraPreview;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 23/09/17.
- * En este fragmento se obtiene el barcode(codigo de barras) de un producto,
+ * En este fragmento se obtiene el barcode(codigo de barras) de un producto.
  */
 public class BarcodeScannerFragment extends MyFragment {
     private static final String TAG = BarcodeScannerFragment.class.getSimpleName();

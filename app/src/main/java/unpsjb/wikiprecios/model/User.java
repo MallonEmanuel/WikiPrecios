@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Ema on 31/10/2015.
+ * Esta clase se ocupa de guardar la informacion de un usuario
  */
 public class User implements Parcelable {
     private int id;

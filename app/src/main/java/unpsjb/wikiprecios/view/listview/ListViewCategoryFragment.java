@@ -11,7 +11,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.events.OnClickListenerCategory;
 
 /**
- * Created by emanuel on 06/10/17.
+ * Esta clase permite ver la lista de todas las categorias.
  */
 public class ListViewCategoryFragment extends ListViewFragment {
 

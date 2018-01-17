@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import unpsjb.wikiprecios.R;
 
 /**
- * Created by emanuel on 02/10/17.
+ *
  */
 public class Category implements Listable,Parcelable{
 

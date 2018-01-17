@@ -10,7 +10,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.events.OnClickListenerSpecialProduct;
 
 /**
- * Created by emanuel on 06/10/17.
+ * Esta clase permite ver la lista de productos especiales.
  */
 public class ListViewSpecialProductFragment extends ListViewFragment{
 

@@ -13,7 +13,7 @@ import unpsjb.wikiprecios.view.util.DialogListener;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 10/10/17.
+ * Esta clase se encarga de manejar los eventos que surgen en la lista de Comercios.
  */
 public class OnItemLongClickListenerCommerce implements AdapterView.OnItemLongClickListener, DialogListener {
 

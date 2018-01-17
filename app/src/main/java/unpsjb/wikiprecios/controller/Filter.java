@@ -3,7 +3,7 @@ package unpsjb.wikiprecios.controller;
 import java.util.List;
 
 /**
- * Created by emanuel on 13/10/17.
+ * Permite filtrar una lista con respecto a algun discriminante.
  */
 public interface Filter {
     public List filter(List list);

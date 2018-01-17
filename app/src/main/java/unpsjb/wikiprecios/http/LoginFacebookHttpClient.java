@@ -14,7 +14,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 09/01/18.
+ * Esta clase se ocupa de logear un usuario con su cuenta de facebook.
  */
 public class LoginFacebookHttpClient extends HttpClient implements HttpResponseHandler {
 
@@ -27,6 +27,9 @@ public class LoginFacebookHttpClient extends HttpClient implements HttpResponseH
         super(coordinator, context);
     }
 
+    /**
+     * Envia la peticion para logear un usuario de facebook. Envia el mail, name, surname y facebook_id
+     */
     @Override
     public void sendRequest() {
         String base_url = AppPreference.getPrefBaseUrl(context);
@@ -40,7 +43,10 @@ public class LoginFacebookHttpClient extends HttpClient implements HttpResponseH
         //coordinator.showDialog(context.getString(R.string.msg_logging));
     }
 
-
+    /**
+     * En caso de exito permite al usuario ingresar a wikiprecios.
+     * @param data el resultado de la peticion
+     */
     @Override
     public void onSuccess(Object data) {
         //coordinator.hideDialog();

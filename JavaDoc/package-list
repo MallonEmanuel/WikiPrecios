@@ -1,0 +1,10 @@
+unpsjb.wikiprecios.config
+unpsjb.wikiprecios.controller
+unpsjb.wikiprecios.controller.parser
+unpsjb.wikiprecios.http
+unpsjb.wikiprecios.model
+unpsjb.wikiprecios.service
+unpsjb.wikiprecios.view
+unpsjb.wikiprecios.view.events
+unpsjb.wikiprecios.view.listview
+unpsjb.wikiprecios.view.util

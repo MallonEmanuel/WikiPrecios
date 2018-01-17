@@ -65,7 +65,8 @@ import unpsjb.wikiprecios.view.util.Message;
 
 /**
  * Esta clase se ocupa de generar todos los fragmentos y de coordinador los mensajes
- * entre ellos.
+ * entre ellos. Implementa todos los metodos de Coordinator.
+ * @see Coordinator
  */
 public class MainActivity extends AppCompatActivity implements Coordinator {
     private static final String TAG = MainActivity.class.getSimpleName();

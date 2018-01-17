@@ -14,7 +14,7 @@ import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 18/10/17.
+ * Esta clase se ocupa de logear un usuario con su cuenta de Wikiprecios
  */
 public class LoginHttpClient extends HttpClient implements HttpResponseHandler {
 
@@ -26,6 +26,9 @@ public class LoginHttpClient extends HttpClient implements HttpResponseHandler {
         super(coordinator, context);
     }
 
+    /**
+     * Envia la peticion para logear un usuario de wikiprecios. Envia el mail y password
+     */
     @Override
     public void sendRequest() {
         String base_url = AppPreference.getPrefBaseUrl(context);
@@ -48,6 +51,10 @@ public class LoginHttpClient extends HttpClient implements HttpResponseHandler {
         this.password = password;
     }
 
+    /**
+     * En caso de exito permite al usuario ingresar a wikiprecios.
+     * @param data el resultado de la peticion
+     */
     @Override
     public void onSuccess(Object data) {
         coordinator.hideDialog();

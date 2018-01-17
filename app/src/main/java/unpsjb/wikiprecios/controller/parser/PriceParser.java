@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import unpsjb.wikiprecios.model.Price;
 
 /**
- * Created by emanuel on 05/01/18.
+ * Se encarga de parsear un Precio de JSONObject a Entidad.
  */
 public class PriceParser implements Parselable {
 

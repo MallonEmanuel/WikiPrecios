@@ -26,7 +26,8 @@ import unpsjb.wikiprecios.service.LocationService;
 import unpsjb.wikiprecios.view.util.Message;
 
 /**
- * Created by emanuel on 20/10/17.
+ * Este Fragmento muestra un mapa iterativo, que permite agregar un comercio. Esta mejora quedo
+ * deshabilida por votación de desarrolladores.
  */
 public class MapFragment extends MyFragment {
     private static final String TAG = MapFragment.class.getSimpleName();

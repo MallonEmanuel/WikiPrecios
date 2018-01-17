@@ -7,7 +7,7 @@ import android.widget.ListView;
 import java.util.List;
 
 /**
- * Created by emanuel on 04/10/17.
+ * Esta clase ayuda a controlar una lista
  */
 public class ListViewController {
 

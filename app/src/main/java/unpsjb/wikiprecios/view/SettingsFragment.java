@@ -1,7 +1,6 @@
 package unpsjb.wikiprecios.view;
 
 /**
- * Created by emanuel on 18/09/17.
  * Este fragmento permite mostrar las configuraciones del usuario:
  * Si se desea mantener la sesion y la base_url del servidor.
  */
