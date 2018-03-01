@@ -1,10 +1,23 @@
 package unpsjb.wikiprecios.view.listview;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.honorato.multistatetogglebutton.MultiStateToggleButton;
+import org.honorato.multistatetogglebutton.ToggleButton;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import unpsjb.wikiprecios.R;
+import unpsjb.wikiprecios.controller.comparator.DistanceComparator;
+import unpsjb.wikiprecios.controller.comparator.FavouriteComparator;
+import unpsjb.wikiprecios.controller.comparator.PriceComparator;
+import unpsjb.wikiprecios.model.Price;
 import unpsjb.wikiprecios.view.Coordinator;
 import unpsjb.wikiprecios.view.events.OnClickListenerPrice;
 
@@ -13,11 +26,54 @@ import unpsjb.wikiprecios.view.events.OnClickListenerPrice;
  * Esta clase permite ver la lista de precios resultados.
  */
 public class ListViewPriceFragment extends ListViewFragment {
+    private String TAG = ListViewPriceFragment.class.getSimpleName();
 
+    private MultiStateToggleButton button;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         onItemClickListener = new OnClickListenerPrice((Coordinator) getActivity());
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView(view );
+        return view;
+    }
+
+    private void initView(View view) {
+        button = (MultiStateToggleButton) view.findViewById(R.id.mstb_multi_id);
+        button.setVisibility(View.VISIBLE);
+
+
+        button.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
+            @Override
+            public void onValueChanged(int position) {
+                Log.e(TAG, "Position: " + position);
+                switch (position){
+                    case 0 : ordenar(list,new PriceComparator());
+                             break;
+                    case 1 : ordenar(list,new FavouriteComparator());
+                             break;
+                    default : ordenar(list,new DistanceComparator());
+                             break;
+                }
+            }
+        });
+    }
+
+
+    private void ordenar(List list, Comparator comparator) {
+        Collections.sort(list, comparator);
+        listViewController.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        button.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        button.setVisibility(View.GONE);
     }
 }

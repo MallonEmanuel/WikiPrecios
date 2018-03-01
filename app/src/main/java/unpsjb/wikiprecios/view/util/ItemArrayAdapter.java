@@ -63,7 +63,7 @@ public class ItemArrayAdapter extends ArrayAdapter<Listable> {
         img.setImageResource(item.getImg());
 
         if (item.isFavourite()) {
-            favorite.setImageResource(R.drawable.ic_star);
+            favorite.setImageResource(R.drawable.ic_star2);
         } else {
             favorite.setImageResource(R.drawable.ic_space);
         }

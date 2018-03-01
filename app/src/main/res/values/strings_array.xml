@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orden_array">
+        <item>Precio</item>
+        <item>Favoritos primero</item>
+        <item>Distancia</item>
+    </string-array>
+</resources>

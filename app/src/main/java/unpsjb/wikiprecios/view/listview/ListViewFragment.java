@@ -27,7 +27,8 @@ public class ListViewFragment extends MyFragment {
     String title = "title";
     AdapterView.OnItemClickListener onItemClickListener;
     AdapterView.OnItemLongClickListener onItemLongClickListener;
-    ListViewController listViewController;
+    protected ListViewController listViewController;
+    protected List list;
     Filter filter;
 
 
@@ -36,7 +37,7 @@ public class ListViewFragment extends MyFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_view, container, false);
 
-        List list = new ArrayList<Listable>();
+        list = new ArrayList<Listable>();
 
         if(getArguments() != null || !getArguments().isEmpty()){
             title = getArguments().getString("title");

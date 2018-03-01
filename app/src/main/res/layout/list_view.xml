@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_app"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,6 +14,15 @@
         android:text="Title"
         android:gravity="center"
         android:id="@+id/title_list" />
+    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+        android:id="@+id/mstb_multi_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        mstb:values="@array/orden_array"
+        mstb:mstbPrimaryColor="@color/btn_lolipop_bg"
+        android:visibility="gone"
+        mstb:mstbSecondaryColor="@color/input_register_bg"/>
 
     <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"
