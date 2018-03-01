@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     RegisterFragment registerFragment;
     MenuFragment menuFragment;
     BarcodeScannerFragment barcodeScannerFragment;
+    ScannerFragment scannerFragment;
+
     ListViewFragment listViewNearbyCommerceFragment;
     ListViewFragment listViewCategoryFragment;
     ListViewFragment listViewSpecialProductFragment;
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         registerFragment = new RegisterFragment();
         menuFragment = new MenuFragment();
         barcodeScannerFragment = new BarcodeScannerFragment();
+        scannerFragment = new ScannerFragment();
+
         // TODO refactorizar todas las clases cn getInstance
         listViewNearbyCommerceFragment = new ListViewNearbyCommerceFragment();
         listViewCategoryFragment = new ListViewCategoryFragment();
@@ -281,11 +285,11 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
     public void viewBarcodeScanner() {
         if(!locationService.isCanGetLocation()){
              Message.show(context,context.getString(R.string.msg_services_disable));
-             return;
         }else {
             query = new Query();
             query.setLocation(locationService.getLocation());
-            addFragment(barcodeScannerFragment);
+            //addFragment(barcodeScannerFragment);
+            addFragment(scannerFragment);
         }
     }
 

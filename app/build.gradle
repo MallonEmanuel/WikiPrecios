@@ -35,7 +35,9 @@ dependencies {
     //  Import facebook API
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     // Import barcode scaner
-    compile 'me.dm7.barcodescanner:zbar:1.8.2'
+    //compile 'me.dm7.barcodescanner:zbar:1.8.2'
+    compile 'me.dm7.barcodescanner:zbar:1.9.2' //actualizacion de version de zbar.
+
     //osm droid del cholky
     compile 'org.osmdroid:osmdroid-android:5.6.5'
 
