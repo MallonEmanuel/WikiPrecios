@@ -45,28 +45,4 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="46dp" />
 
-    <Button
-        android:id="@+id/btn_continue_price"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/my_button"
-        android:text="@string/btn_continue"
-        android:textColor="@color/white"
-        android:layout_above="@+id/btn_cancel_price"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp" />
-
-    <Button
-        android:id="@+id/btn_cancel_price"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/my_button"
-        android:text="@string/btn_cancel"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp" />
-
 </RelativeLayout>

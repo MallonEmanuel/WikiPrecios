@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="359dp"
-        android:layout_height="391dp"
+        android:layout_height="451dp"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -61,6 +61,19 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/my_text"
             android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/input_login_hint"/>
+
+        <EditText
+            android:id="@+id/register_repeat_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/my_text"
+            android:hint="@string/hint_repeat_password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"

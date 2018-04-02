@@ -3,6 +3,7 @@
     <!--Login and Register-->
     <string name="hint_email">Mail</string>
     <string name="hint_password">Contraseña</string>
+    <string name="hint_repeat_password">Repetir Contraseña</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_surname">Apellido</string>
     <string name="btn_login">INGRESAR</string>
@@ -16,6 +17,7 @@
     <string name="msg_logging_ok">Ok</string>
 
     <string name="msg_register_enter_credential">Por favor, introduzca sus datos </string>
+    <string name="msg_register_distinct_password">Las contraseñas ingresadas no coinciden</string>
     <string name="msg_registering">Registrando ...</string>
     <string name="msg_register_try_login">Intente iniciar sesión ahora</string>
     <string name="msg_register_json_error">Json error: </string>

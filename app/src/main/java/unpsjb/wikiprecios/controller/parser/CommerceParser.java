@@ -1,5 +1,7 @@
 package unpsjb.wikiprecios.controller.parser;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +37,6 @@ public class CommerceParser implements Parselable {
         int favourite = object.getInt("favorite");
         if(favourite == 1)f = true; else f = false;
         }
-
         return new Commerce(id,name,address,latitude,longitude,city,province,country,distance,f);
     }
 }

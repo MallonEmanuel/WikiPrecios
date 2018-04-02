@@ -3,9 +3,11 @@ package unpsjb.wikiprecios.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,9 +32,6 @@ public class PriceFragment extends MyFragment{
     private Context context;
     private EditText inputPrice;
     private TextView titleQuery;
-    private Button continueButton;
-    private Button cancelButton;
-
 
     private Coordinator coordinator;
     private Query query;
@@ -52,29 +51,27 @@ public class PriceFragment extends MyFragment{
         inputPrice.requestFocus();
         titleQuery.setText(context.getString(R.string.title_name_commerce) + query.getCommerce().getName()  + "\n" + context.getString(R.string.title_name_barcode) + query.getBarcode());
 
-        continueButton = (Button) view.findViewById(R.id.btn_continue_price);
-        cancelButton = (Button) view.findViewById(R.id.btn_cancel_price);
-
-        continueButton.setOnClickListener(new View.OnClickListener() {
+        inputPrice.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View view) {
-                if (getPrice() == null) {
-                    Message.show(context,context.getString(R.string.msg_enter_price));
-                } else {
-                    query.setPrice(getPrice());
-                    coordinator.savePrice();
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() || actionId == EditorInfo.IME_ACTION_DONE) {
+                    next();
                 }
-            }
-        });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                coordinator.back();
+                return false;
             }
         });
 
         return view;
+    }
+
+    private void next(){
+        if (getPrice() == null) {
+            Message.show(context,context.getString(R.string.msg_enter_price));
+        } else {
+            query.setPrice(getPrice());
+            coordinator.savePrice();
+        }
     }
 
     /**

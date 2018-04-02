@@ -29,19 +29,29 @@ public class ListViewPriceFragment extends ListViewFragment {
     private String TAG = ListViewPriceFragment.class.getSimpleName();
 
     private MultiStateToggleButton button;
+    private int visibility;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         onItemClickListener = new OnClickListenerPrice((Coordinator) getActivity());
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initView(view );
+        initView(view);
+        Log.e(TAG," "+getArguments().getBoolean("empty"));
+        if(getArguments().getBoolean("empty")) {
+            button.setVisibility(View.GONE);
+            visibility = View.GONE;
+        }else {
+            button.setVisibility(View.VISIBLE);
+            visibility = View.VISIBLE;
+        }
         return view;
     }
 
     private void initView(View view) {
         button = (MultiStateToggleButton) view.findViewById(R.id.mstb_multi_id);
-        button.setVisibility(View.VISIBLE);
-
+        //button.setVisibility(View.VISIBLE);
+        button.setValue(2);
+        ordenar(list,new DistanceComparator());
 
         button.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
             @Override
@@ -68,7 +78,8 @@ public class ListViewPriceFragment extends ListViewFragment {
     @Override
     public void onResume() {
         super.onResume();
-        button.setVisibility(View.VISIBLE);
+        button.setValue(2);
+        button.setVisibility(visibility);
     }
 
     @Override

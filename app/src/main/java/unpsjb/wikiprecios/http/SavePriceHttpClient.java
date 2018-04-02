@@ -36,6 +36,8 @@ public class SavePriceHttpClient extends HttpClient implements HttpResponseHandl
         http.addParams("price", String.valueOf(query.getPrice()));
         http.addParams("product", String.valueOf(query.getBarcode()));
         http.addParams("user", SessionManager.getInstance(context).getUserLoged());
+        http.addParams("latitud",String.valueOf(query.getLocation().getLatitude()));
+        http.addParams("longitud",String.valueOf(query.getLocation().getLongitude()));
         http.setListener(this);
         http.sendRequest();
     }

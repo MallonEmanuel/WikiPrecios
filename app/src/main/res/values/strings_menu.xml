@@ -49,6 +49,8 @@
 
     <!-- Price -->
     <string name="title_result_price">Precios ordenados por :</string>
+    <string name="title_result_empty">No existen registros de este producto en otros comercios</string>
+
     <string name="btn_return">Volver </string>
     <!-- Category -->
     <string name="title_category">Seleccione una categoria</string>

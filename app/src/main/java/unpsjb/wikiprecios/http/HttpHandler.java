@@ -23,6 +23,8 @@ public class HttpHandler extends JsonHttpResponseHandler {
     // Tipo de consultas
     public static final int GET_REQUEST= 0;
     public static final int POST_REQUEST= 1;
+
+    public static final int TIME = 3000;
     // Url a consultar
     private String baseUrl;
     // Clase que espera la respuesta de dicha consulta
@@ -42,10 +44,13 @@ public class HttpHandler extends JsonHttpResponseHandler {
         Boolean request = true;
         Log.e("HttpHandler","sending request");
         try {
+
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setConnectTimeout(10);
-            client.setTimeout(10);
-            client.setResponseTimeout(10);
+            client.setConnectTimeout(TIME);
+            client.setTimeout(TIME);
+            client.setResponseTimeout(TIME);
+
+            Log.e("HTTP", client.getConnectTimeout()+" "+client.getResponseTimeout()+ " ");
             if(requestMode == GET_REQUEST){
                 client.get(baseUrl, requestParams, this);
                 Log.e("HttpHandler", "sending request GET");

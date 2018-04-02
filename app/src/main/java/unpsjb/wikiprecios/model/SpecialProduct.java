@@ -103,7 +103,7 @@ public class SpecialProduct implements Listable,Parcelable {
 
     @Override
     public String getSubtitle() {
-        return code;
+        return code +" ( "+ unit+" )";
     }
 
     @Override

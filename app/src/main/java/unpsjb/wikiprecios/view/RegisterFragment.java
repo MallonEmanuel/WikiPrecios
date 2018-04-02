@@ -25,6 +25,7 @@ public class RegisterFragment extends MyFragment {
     private EditText inputSurname;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputRepeatPassword;
 
     private Context context;
     private Coordinator coordinator;
@@ -41,6 +42,8 @@ public class RegisterFragment extends MyFragment {
         inputSurname = (EditText) view.findViewById(R.id.register_surname);
         inputEmail = (EditText) view.findViewById(R.id.register_email);
         inputPassword = (EditText) view.findViewById(R.id.register_password);
+        inputRepeatPassword = (EditText) view.findViewById(R.id.register_repeat_password);
+
         btnRegister = (Button) view.findViewById(R.id.register_btn);
         btnLinkToLogin = (Button) view.findViewById(R.id.link_to_login_screen_btn);
 
@@ -51,12 +54,17 @@ public class RegisterFragment extends MyFragment {
                 String surname = inputSurname.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
+                String repeatPassword = inputRepeatPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    coordinator.registerUser(surname,name, email, password);
-                } else {
+                if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
                     Message.show(context,context.getString(R.string.msg_register_enter_credential));
+                    return;
                 }
+                if(password.compareTo(repeatPassword) != 0){
+                    Message.show(context,context.getString(R.string.msg_register_distinct_password));
+                    return;
+                }
+                coordinator.registerUser(surname,name, email, password);
             }
         });
 

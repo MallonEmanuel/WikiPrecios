@@ -18,6 +18,9 @@ public class FavouriteComparator implements Comparator {
         if(p2.getId() == -1){
             return -1;
         }
+        if(p1.isFavourite() && p2.isFavourite()) {
+            return 1;
+        }
         if(p1.isFavourite()){
             return -1;
         }else

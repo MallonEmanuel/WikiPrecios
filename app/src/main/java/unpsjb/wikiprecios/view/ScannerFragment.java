@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
+import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import unpsjb.wikiprecios.R;
@@ -34,6 +37,8 @@ public class ScannerFragment extends MyFragment implements ZBarScannerView.Resul
         ViewGroup contentFrame = (ViewGroup) view.findViewById(R.id.content_frame);
 
         mScannerView = new ZBarScannerView(getActivity());
+        mScannerView.setFormats(Arrays.asList(BarcodeFormat.EAN13,BarcodeFormat.UPCA));
+        mScannerView.setAutoFocus(true);
         contentFrame.addView(mScannerView);
         initControls(view);
         return view;

@@ -19,7 +19,7 @@ public class PriceComparator implements Comparator {
         if(p2.getId() == -1){
             return -1;
         }
-        return p1.getPrice().compareTo(p2.getPrice());
+        return p1.getPrice1().compareTo(p2.getPrice1());
     }
 
 

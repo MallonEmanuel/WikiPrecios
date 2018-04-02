@@ -13,6 +13,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
+        pDialog.setCancelable(true);
 
 
         // Si existe un usuario logeado y preferio dejar la sesion iniciada, vamos al menu
@@ -366,7 +367,15 @@ public class MainActivity extends AppCompatActivity implements Coordinator {
         list.add(price);
 
         bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
-        bundle.putString("title",context.getText(R.string.title_result_price).toString());
+        Log.e(TAG,"  "+list.size());
+        if(list.size() == 1){
+            bundle.putString("title",context.getText(R.string.title_result_empty).toString());
+            bundle.putBoolean("empty",true);
+        }else {
+            bundle.putString("title", context.getText(R.string.title_result_price).toString());
+            bundle.putBoolean("empty",false);
+        }
+
         setArguments(listViewPriceFragment,bundle);
         addFragment(listViewPriceFragment);
 

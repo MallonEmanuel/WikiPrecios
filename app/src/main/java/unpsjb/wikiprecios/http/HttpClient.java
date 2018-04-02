@@ -29,6 +29,6 @@ public abstract class HttpClient implements HttpResponseHandler{
     @Override
     public void onFailure() {
         coordinator.hideDialog();
-        Message.show(context,"Lo sentimos, en este momento wikiprecios no esta disponible, por favor, intente mas tarde");
+        Message.show(context,"Lo sentimos, en este momento wikiprecios no esta disponible, por favor intente mas tarde");
     }
 }
